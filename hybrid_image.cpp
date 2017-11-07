@@ -81,8 +81,12 @@ cv::Mat convolution(cv::Mat image, cv::Mat kernel){
     int center_y = (width % 2 == 1) ? (width/2) + 1 : (width/2);
     int top_pad = kernel.rows - center_x;
     int side_pad = kernel.cols - center_y;
-    cv::Mat paddedImage;//TODO: Fix bug in image padding
-    cv::copyMakeBorder( image, paddedImage, 0, top_pad, 0, side_pad, cv::BORDER_CONSTANT, 0); //top_pad, top_pad, side_pad, side_pad
+    cv::Mat paddedImage;
+
+    cout << "Image size (" << image.rows << "," << image.cols << ")" << endl;
+    cout << "Kernel size (" << height << "," << width << ")" << endl;
+
+    cv::copyMakeBorder( image, paddedImage, top_pad, top_pad, 1, 1, cv::BORDER_CONSTANT, 0);
     cout << paddedImage.row(2) << endl;
     cv::Mat result_image = cv::Mat::zeros(image.rows, image.cols, CV_8UC1 );;
 
@@ -92,8 +96,9 @@ cv::Mat convolution(cv::Mat image, cv::Mat kernel){
             int pixel = 0;
 
             cv::Mat current_section = paddedImage(cv::Rect(col,row,kernel.cols,kernel.rows));
+            cout << "Current section" << endl;
             cout << current_section << endl;
-            pixel = cv::sum(current_section * kernel)[0];
+            pixel = cv::sum(current_section * kernel)[0]; //TODO: Fix bug in matrix multiplication
 
             // for(int j = 0; j < kernel.cols; j++){
             //     for(int i=0; i < kernel.rows; i++){
@@ -148,10 +153,10 @@ int main(int argc, char** argv){
     cout << kernel << endl;
     cout << "***Here ****" << endl;
 
-    // cout << "Image channels = " << image.channels() << endl;
+    cout << "Image channels = " << image.channels() << endl;
 
-    // cv::Mat conv_image = convolution( image, kernel );
-    // cv::imshow( MAIN_WINDOW, conv_image );
+    cv::Mat conv_image = convolution( image, kernel );
+    cv::imshow( MAIN_WINDOW, conv_image );
     cv::waitKey(0);
 
     cout << "End of program ..." << endl;
