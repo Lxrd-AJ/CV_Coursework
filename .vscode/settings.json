@@ -12,6 +12,7 @@
         "algorithm": "cpp",
         "cctype": "cpp",
         "cstddef": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "valarray": "cpp"
     }
 }

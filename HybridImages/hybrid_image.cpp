@@ -11,41 +11,15 @@ using namespace std;
 
 const string MAIN_WINDOW = "Hybrid Images";
 
-
-//DEPRECATED
-cv::Mat discreteFourierTransform( cv::Mat image ){
-    //Perform the discrete fourier transform on an image
-    //Expand the image into an optimal size
-    cv::Mat paddedImage;
-    int rows = cv::getOptimalDFTSize( image.rows );
-    int cols = cv::getOptimalDFTSize( image.cols );
-    cv::copyMakeBorder( image, paddedImage, 0, rows - image.rows, 0, cols - image.cols, cv::BORDER_CONSTANT, cv::Scalar::all(0) );
-
-    //Make place for the complex and real values 
-    cv::Mat planes[] = { cv::Mat_<float>(paddedImage), cv::Mat::zeros(paddedImage.size(), CV_32F) };
-    cv::Mat complexImage;
-    cv::merge( planes, 2, complexImage );
-
-    //make the discrete fourier transform of the image
-    cv::dft( complexImage, complexImage );
-
-    //Transform the real and complex values to magnitude 
-    cv::split(complexImage, planes);
-    cv::magnitude( planes[0], planes[1], planes[0] );
-    cv::Mat magnitudeImage = planes[0];
-
-    //Switch to a logarithmic scale so the image is visible 
-    magnitudeImage += cv::Scalar::all(1);
-    cv::log( magnitudeImage, magnitudeImage );
-
-    //Crop and rearrange the image 
-    //magnitudeImage = magnitudeImage(cv::Rect(0,0,magnitudeImage.cols & -2 ))
-
-    return magnitudeImage;
+cv::Mat read_image(string filename){
+    cv::Mat _image = cv::imread(filename, cv::IMREAD_COLOR);
+    cv::Mat image;
+    _image.convertTo(image, CV_32F);
+    return image;
 }
 
 double gaussian(int row, int col, double sigma, tuple<int, int> mu){
-    double mean = pow(row - std::get<0>(mu), 2.0) + pow(col = std::get<1>(mu), 2.0);
+    double mean = pow(row - std::get<0>(mu), 2.0) + pow(col - std::get<1>(mu), 2.0);
     double coefficient = exp(-1.0 * mean / (2 * pow(sigma,2.0)));
     return coefficient;
 }
@@ -78,31 +52,59 @@ cv::Mat convolution(cv::Mat image, cv::Mat kernel){
     int top_pad = kernel.rows - center_x;
     int side_pad = kernel.cols - center_y;
     cv::Mat paddedImage;
-
     cv::copyMakeBorder( image, paddedImage, top_pad, top_pad, side_pad, side_pad, cv::BORDER_CONSTANT, 0);
     cv::Mat result_image = cv::Mat::zeros(image.rows, image.cols, CV_8UC1 );;
 
     //begin image convolution
-    for(int col = 0; col < image.cols; col++){ 
-        for(int row = 0; row < image.rows; row++){
+    for(int row = 0; row < image.rows; row++){ 
+        for(int col = 0; col < image.cols; col++){
             int pixel = 0;
             cv::Mat current_section = paddedImage(cv::Rect(col,row,kernel.cols,kernel.rows));
-            pixel = cv::sum(current_section.t() * kernel)[0]; 
-            result_image.at<double>(col,row) = pixel;
+            // cv::Mat current_section; 
+            // _current_section.convertTo(current_section, CV_64F);
+            // cout << current_section << endl;
+            pixel = cv::sum(current_section * kernel.t())[0]; 
+            result_image.at<double>(row,col) = pixel;
         }
     }
     return result_image;
 }
 
-int main(int argc, char** argv){
-    string filename("./data/bicycle.bmp");
-    cv::Mat _image = cv::imread(filename, cv::IMREAD_COLOR);
-    cv::Mat image; 
-    _image.convertTo(image, CV_32F);
-    cv::namedWindow( MAIN_WINDOW , cv::WINDOW_AUTOSIZE);
-    cv::imshow( MAIN_WINDOW, image );
-    
+cv::Mat convolution_channels(cv::Mat image, cv::Mat kernel){
+    cv::Mat conv_image;
+    cv::Mat final_image;
+    vector<cv::Mat> channels;
+    cv::Mat bgr[image.channels()];
+    cv::split( image,bgr );
+    for(int channel = 0; channel < image.channels(); channel++){
+        conv_image = convolution( bgr[channel], kernel );
+        channels.push_back( conv_image );
+        // cv::imshow( MAIN_WINDOW,conv_image );
+        // cv::waitKey(0);
+    }
+    cv::merge( channels,final_image );
+    return final_image;
+}
 
+cv::Mat hybrid_image(cv::Mat image1, cv::Mat image2, cv::Mat kernel){
+    cv::Mat low_img1 = convolution_channels( image1, kernel );
+    cv::Mat _img2 = convolution_channels( image2, kernel );
+    cv::Mat high_img2;
+    cv::Mat result;
+    cv::subtract(image2, _img2, high_img2, cv::Mat(), CV_32F);
+    cv::add( low_img1, high_img2, result, cv::Mat(), CV_32F );
+    return result;
+}
+
+int main(int argc, char** argv){
+    string filename("./data/einstein.bmp");
+    string filename2("./data/marilyn.bmp");
+
+    cv::Mat image = read_image(filename);
+    cv::Mat image2 = read_image(filename2);
+    
+    cv::namedWindow( MAIN_WINDOW , cv::WINDOW_AUTOSIZE);
+    
     cout << "Creating a gaussian kernel " << endl;
     double sigma = 0.5;
     int size = (int) (8.0f * sigma + 1.0f); 
@@ -110,31 +112,15 @@ int main(int argc, char** argv){
     cv::Mat kernel = gaussianKernel( size,size, sigma );
     cout << "kernel size = " << kernel.size() << endl;
     cout << "Image channels = " << image.channels() << endl;
+    cout << "Image2 channels = " << image2.channels() << endl;
     cout << "Image size = " << image.size() << endl;
+    cout << "Image2 size = " << image2.size() << endl;
 
-    cv::Mat conv_image;
-    if( image.channels() == 1 ){
-        conv_image = convolution( image, kernel );
-        cv::imshow( MAIN_WINDOW, conv_image );
-        cv::waitKey(0);
-    }else{
-        cv::Mat final_image;
-        vector<cv::Mat> channels;
-        cv::Mat bgr[image.channels()];
-        cv::split( image,bgr );
-        for(int channel = 0; channel < image.channels(); channel++){
-            conv_image = convolution( bgr[channel], kernel );
-            channels.push_back( conv_image );
-            // cv::imshow( MAIN_WINDOW,conv_image );
-            // cv::waitKey(0);
-        }
-        cv::merge( channels,final_image );
-        cv::imshow( MAIN_WINDOW,final_image );
-        cv::waitKey(0);
-    }
+    cv::Mat hybrid = hybrid_image( image, image2, kernel );
+    cout << "Hybrid Image of " << filename << " and " << filename2 << endl;
+    cv::imshow( MAIN_WINDOW, hybrid );
+    cv::waitKey(0);
 
-    
-    
     cout << "End of program ..." << endl;
     exit(0);
 }
