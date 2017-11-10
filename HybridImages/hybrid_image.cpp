@@ -9,7 +9,9 @@
 
 using namespace std;
 
-const string MAIN_WINDOW = "Hybrid Images";
+const string MAIN_WINDOW = "Hybrid Image";
+const string LOW_WINDOW = "Low Frequency Window";
+const string HIGH_WINDOW = "High Frequency Window";
 
 cv::Mat read_image(string filename){
     cv::Mat _image = cv::imread(filename, cv::IMREAD_COLOR);
@@ -24,10 +26,14 @@ double gaussian(int row, int col, double sigma, tuple<int, int> mu){
     return coefficient;
 }
 
+/**
+ * TODO: Check for bug in gaussian kernel function
+*/
 cv::Mat gaussianKernel(int height, int width, double sigma){
     int center_x = (height % 2 == 1) ? (height/2) + 1 : (height/2);
     int center_y = (width % 2 == 1) ? (width/2) + 1 : (width/2);
     auto mu = std::make_tuple( center_x, center_y );
+    cout << "Kernel mean = (" << center_x << "," << center_y << ")" << endl;
     cv::Mat kernel = cv::Mat::zeros(height, width, CV_32FC1 );
     for(int row=0; row < kernel.rows; row++ ){
         for(int col=0; col < kernel.cols; col++ ){
@@ -60,9 +66,6 @@ cv::Mat convolution(cv::Mat image, cv::Mat kernel){
         for(int col = 0; col < image.cols; col++){
             int pixel = 0;
             cv::Mat current_section = paddedImage(cv::Rect(col,row,kernel.cols,kernel.rows));
-            // cv::Mat current_section; 
-            // _current_section.convertTo(current_section, CV_64F);
-            // cout << current_section << endl;
             pixel = cv::sum(current_section * kernel.t())[0]; 
             result_image.at<double>(row,col) = pixel;
         }
@@ -79,8 +82,6 @@ cv::Mat convolution_channels(cv::Mat image, cv::Mat kernel){
     for(int channel = 0; channel < image.channels(); channel++){
         conv_image = convolution( bgr[channel], kernel );
         channels.push_back( conv_image );
-        // cv::imshow( MAIN_WINDOW,conv_image );
-        // cv::waitKey(0);
     }
     cv::merge( channels,final_image );
     return final_image;
@@ -88,25 +89,29 @@ cv::Mat convolution_channels(cv::Mat image, cv::Mat kernel){
 
 cv::Mat hybrid_image(cv::Mat image1, cv::Mat image2, cv::Mat kernel){
     cv::Mat low_img1 = convolution_channels( image1, kernel );
+    cv::imshow( LOW_WINDOW, low_img1 );
     cv::Mat _img2 = convolution_channels( image2, kernel );
     cv::Mat high_img2;
     cv::Mat result;
     cv::subtract(image2, _img2, high_img2, cv::Mat(), CV_32F);
+    cv::imshow( HIGH_WINDOW, high_img2 );
     cv::add( low_img1, high_img2, result, cv::Mat(), CV_32F );
     return result;
 }
 
 int main(int argc, char** argv){
-    string filename("./data/einstein.bmp");
-    string filename2("./data/marilyn.bmp");
+    string filename("./data/bicycle.bmp");
+    string filename2("./data/motorcycle.bmp");
 
     cv::Mat image = read_image(filename);
     cv::Mat image2 = read_image(filename2);
     
     cv::namedWindow( MAIN_WINDOW , cv::WINDOW_AUTOSIZE);
+    cv::namedWindow( LOW_WINDOW, cv::WINDOW_AUTOSIZE );
+    cv::namedWindow( HIGH_WINDOW, cv::WINDOW_AUTOSIZE );
     
     cout << "Creating a gaussian kernel " << endl;
-    double sigma = 0.5;
+    double sigma = 0.3;
     int size = (int) (8.0f * sigma + 1.0f); 
     if (size % 2 == 0) size++; 
     cv::Mat kernel = gaussianKernel( size,size, sigma );
