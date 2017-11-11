@@ -13,6 +13,7 @@
         "cctype": "cpp",
         "cstddef": "cpp",
         "ostream": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "queue": "cpp"
     }
 }

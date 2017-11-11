@@ -21,8 +21,11 @@ cv::Mat read_image(string filename){
 }
 
 double gaussian(int row, int col, double sigma, tuple<int, int> mu){
-    double mean = pow(row - std::get<0>(mu), 2.0) + pow(col - std::get<1>(mu), 2.0);
-    double coefficient = exp(-1.0 * mean / (2 * pow(sigma,2.0)));
+    double mean = pow(row - std::get<0>(mu), 2) + pow(col - std::get<1>(mu), 2);
+    double coefficient = exp((-1 * mean) / (2 * pow(sigma,2)));
+    // double top = exp(-((pow(row,2.0) + pow(col,2.0)) / 2 * pow(sigma,2.0)));
+    // double bottom = 2 * M_PI * pow(sigma,2.0);
+    // double coefficient = top / bottom;
     return coefficient;
 }
 
@@ -35,12 +38,30 @@ cv::Mat gaussianKernel(int height, int width, double sigma){
     auto mu = std::make_tuple( center_x, center_y );
     cout << "Kernel mean = (" << center_x << "," << center_y << ")" << endl;
     cv::Mat kernel = cv::Mat::zeros(height, width, CV_32FC1 );
-    for(int row=0; row < kernel.rows; row++ ){
-        for(int col=0; col < kernel.cols; col++ ){
-            kernel.at<double>(row,col) = gaussian(row, col, sigma, mu);
+    for(int row=1; row <= kernel.rows; row++ ){
+        for(int col=1; col <= kernel.cols; col++ ){
+            kernel.at<double>(col-1,row-1) = gaussian(col, row, sigma, mu);
         }
     }
     int sum = cv::sum(kernel)[0];
+    kernel = kernel / sum;
+    return kernel;
+}
+
+cv::Mat gaussian_template( int win_size, double sigma ){
+    int centre = floor(win_size/2) + 1;
+    double sum = 0;
+    cout << "Center = " << centre << endl;
+    cv::Mat kernel = cv::Mat::zeros(win_size, win_size, CV_32FC1 );
+    for(int i=1; i <= win_size; i++){
+        for(int j=1; j <= win_size; j++){
+            int top = pow((j - centre), 2) + pow((i - centre), 2);
+            cout << top << "\t";
+            kernel.at<double>(j,i) = exp(-top / (2 * sigma * sigma));
+            sum = sum + kernel.at<double>(j,i);
+        }
+    }
+
     kernel = kernel / sum;
     return kernel;
 }
@@ -100,8 +121,8 @@ cv::Mat hybrid_image(cv::Mat image1, cv::Mat image2, cv::Mat kernel){
 }
 
 int main(int argc, char** argv){
-    string filename("./data/bicycle.bmp");
-    string filename2("./data/motorcycle.bmp");
+    string filename("./data/dog.bmp");
+    string filename2("./data/cat.bmp");
 
     cv::Mat image = read_image(filename);
     cv::Mat image2 = read_image(filename2);
@@ -114,8 +135,10 @@ int main(int argc, char** argv){
     double sigma = 0.3;
     int size = (int) (8.0f * sigma + 1.0f); 
     if (size % 2 == 0) size++; 
-    cv::Mat kernel = gaussianKernel( size,size, sigma );
+    cv::Mat kernel = gaussianKernel( size, size, sigma );
+    // cv::Mat kernel = gaussian_template( size, sigma );
     cout << "kernel size = " << kernel.size() << endl;
+    cout << "Gaussian Kernel\n" << kernel << endl;
     cout << "Image channels = " << image.channels() << endl;
     cout << "Image2 channels = " << image2.channels() << endl;
     cout << "Image size = " << image.size() << endl;
