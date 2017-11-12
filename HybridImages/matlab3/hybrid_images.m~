@@ -1,12 +1,14 @@
-sigma = 2.5;
+sigma = 10.0;
 win_size = round(8.0 * sigma + 1.0);
 if (rem(win_size,2) == 0) 
     win_size = win_size + 1;
 end
 gaussian_temp = gaussian_template(win_size,sigma);
 
-img1 = imread('data/dog.bmp','bmp');
-img2 = imread('data/cat.bmp','bmp');
+% img1 = imread('data/bicycle.bmp','bmp');
+% img2 = imread('data/motorcycle.bmp','bmp');
+img1 = imread('data/low_j.jpg','jpg');
+img2 = imread('data/high_j.jpg','jpg');
 
 img_1_R = double(img1(:,:,1));
 img_1_G = double(img1(:,:,2));
@@ -20,7 +22,7 @@ figure(1), clf;
 subplot(2,2,1), imshow(uint8(img_1_low));
 subplot(2,2,2), imshow(uint8(img1));
 
-sigma = 5.0;
+sigma = 3.0;
 win_size = round(8.0 * sigma + 1.0);
 if (rem(win_size,2) == 0) 
     win_size = win_size + 1;
