@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "null",
+            "includePath": [
+                "/usr/local/lib",
+                "/usr/lib"
+            ],
+            "defines": [],
+            "browse": {
+                "path": [],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "intelliSenseMode": "clang-x64",
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ]
+        }
+    ],
+    "version": 3
+}
