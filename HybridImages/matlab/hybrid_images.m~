@@ -1,4 +1,4 @@
-sigma = 4.0;
+sigma = 3.5;
 win_size = round(8.0 * sigma + 1.0);
 if (rem(win_size,2) == 0) 
     win_size = win_size + 1;
@@ -8,10 +8,12 @@ gaussian_temp = gaussian_template(win_size,sigma);
 
 img1 = imread('data/fish.bmp','bmp');
 img2 = imread('data/submarine.bmp','bmp');
+% TODO: Move the padding into the convolution function
 % pad the images against convolution
 img1 = padarray(img1, [pad pad], 'both');
 img2 = padarray(img2, [pad pad], 'both');
-
+% TODO: Create a separate function to separate out the image into its
+% channels, convolve it and combine back to results
 img_1_R = double(img1(:,:,1));
 img_1_G = double(img1(:,:,2));
 img_1_B = double(img1(:,:,3));
@@ -58,9 +60,24 @@ subplot(3,3,2), imshow(img1);
 subplot(3,3,3), imshow(img2);
 
 % Resize the image for visualisation purposes
+hybrid_bigger = imresize( hybrid, 1.5 );
 hybrid_smaller = imresize( hybrid, 0.5 );
 figure(4), clf;
-imshow(hybr
+subplot(2,2,1), imshow(hybrid_smaller);
+subplot(2,2,2), imshow(hybrid_bigger);
 
-imwrite(hybrid, 'hybrid.jpg');
+imwrite(hybrid, 'fish_submarine.jpg');
+
+% Throw-away Code to resize some images
+% img1 = imresize( img1, [340 400] );
+% img1 = uint8(img1);
+% img2 = imresize( img2, [340 400] );
+% img2 = uint8(img2);
+% figure(1), clf;
+% subplot(2,2,1), imshow(img1);
+% subplot(2,2,2), imshow(img2);
+% 
+% imwrite( img1, 'data/hilary_smaller.jpg' );
+% imwrite( img2, 'data/trump_tiny_hands.jpg' );
+
 

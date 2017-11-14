@@ -8,15 +8,15 @@ gaussian_temp = gaussian_template(win_size,sigma);
 
 img1 = imread('data/fish.bmp','bmp');
 img2 = imread('data/submarine.bmp','bmp');
-% TODO: Move the padding into the convolution function
-% pad the images against convolution
-img1 = padarray(img1, [pad pad], 'both');
-img2 = padarray(img2, [pad pad], 'both');
-% TODO: Create a separate function to separate out the image into its
-% channels, convolve it and combine back to results
+
 img_1_R = double(img1(:,:,1));
 img_1_G = double(img1(:,:,2));
 img_1_B = double(img1(:,:,3));
+
+
+img1 = padarray(img1, [pad pad], 'both');
+img2 = padarray(img2, [pad pad], 'both');
+
 
 img_1_R = convolve(img_1_R,gaussian_temp);
 img_1_G = convolve(img_1_G,gaussian_temp);

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.28)  14 NOV 2017 06:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.28)  14 NOV 2017 17:02
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -774,36 +774,59 @@ id_images.toc)
 \openout10 = `hybrid_images.lol'.
 
  [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 60.
+<images/fish_submarine.jpg, id=53, 376.40625pt x 308.15125pt>
+File: images/fish_submarine.jpg Graphic file (type jpg)
+
+<use images/fish_submarine.jpg>
+Package pdftex.def Info: images/fish_submarine.jpg used on input line 53.
+(pdftex.def)             Requested size: 230.04079pt x 188.33403pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+
+ []
+
+
+(./_minted-hybrid_images/1506402C4FB952578F2A41F0714C5FE22194B472C51957D9CC9665
+CC7A310996.pygtex)
+Package hyperref Info: bookmark level for unknown listing defaults to 0 on inpu
+t line 65.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.60 \end{document}
-                    [1]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 60.
- (./hybrid_images.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 60.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 60.
+l.72 		\begin{equation}
+                        [1 <./images/fish_submarine.jpg>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 85.
+ [2]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 85.
+
+(./hybrid_images.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 85.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 85.
 Package rerunfilecheck Info: File `hybrid_images.out' has not changed.
-(rerunfilecheck)             Checksum: C431451D0D8406C0B3B47723936E808D;161.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 60.
+(rerunfilecheck)             Checksum: ED266395D994F6D8BDE7841A8436FDA4;333.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 85.
  ) 
 Here is how much of TeX's memory you used:
- 17589 strings out of 493014
- 312663 string characters out of 6133350
- 421048 words of memory out of 5000000
- 20954 multiletter control sequences out of 15000+600000
- 6683 words of font info for 25 fonts, out of 8000000 for 9000
+ 17646 strings out of 493014
+ 313804 string characters out of 6133350
+ 423228 words of memory out of 5000000
+ 20989 multiletter control sequences out of 15000+600000
+ 10449 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,7n,42p,10422b,329s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,7n,42p,10422b,425s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
-/usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on hybrid_images.pdf (4 pages, 39944 bytes).
+></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></
+usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></us
+r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/l
+ocal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
+cal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/loc
+al/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on hybrid_images.pdf (5 pages, 96611 bytes).
 PDF statistics:
- 58 PDF objects out of 1000 (max. 8388607)
- 48 compressed objects within 1 object stream
- 11 named destinations out of 1000 (max. 500000)
- 25 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 100 PDF objects out of 1000 (max. 8388607)
+ 83 compressed objects within 1 object stream
+ 17 named destinations out of 1000 (max. 500000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

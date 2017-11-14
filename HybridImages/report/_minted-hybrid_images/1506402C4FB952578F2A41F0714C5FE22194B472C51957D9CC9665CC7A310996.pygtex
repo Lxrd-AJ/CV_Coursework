@@ -1,0 +1,83 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sigma} \PYG{p}{=} \PYG{l+m+mf}{3.5}\PYG{p}{;}
+\PYG{n}{win\PYGZus{}size} \PYG{p}{=} \PYG{n+nb}{round}\PYG{p}{(}\PYG{l+m+mf}{8.0} \PYG{o}{*} \PYG{n}{sigma} \PYG{o}{+} \PYG{l+m+mf}{1.0}\PYG{p}{);}
+\PYG{k}{if} \PYG{p}{(}\PYG{n+nb}{rem}\PYG{p}{(}\PYG{n}{win\PYGZus{}size}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)} 
+    \PYG{n}{win\PYGZus{}size} \PYG{p}{=} \PYG{n}{win\PYGZus{}size} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{k}{end}
+\PYG{n}{pad} \PYG{p}{=} \PYG{p}{(}\PYG{n}{win\PYGZus{}size} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{;}
+\PYG{n}{gaussian\PYGZus{}temp} \PYG{p}{=} \PYG{n}{gaussian\PYGZus{}template}\PYG{p}{(}\PYG{n}{win\PYGZus{}size}\PYG{p}{,}\PYG{n}{sigma}\PYG{p}{);}
+
+\PYG{n}{img1} \PYG{p}{=} \PYG{n}{imread}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}data/fish.bmp\PYGZsq{}}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}bmp\PYGZsq{}}\PYG{p}{);}
+\PYG{n}{img2} \PYG{p}{=} \PYG{n}{imread}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}data/submarine.bmp\PYGZsq{}}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}bmp\PYGZsq{}}\PYG{p}{);}
+
+\PYG{n}{img\PYGZus{}1\PYGZus{}R} \PYG{p}{=} \PYG{n}{double}\PYG{p}{(}\PYG{n}{img1}\PYG{p}{(:,:,}\PYG{l+m+mi}{1}\PYG{p}{));}
+\PYG{n}{img\PYGZus{}1\PYGZus{}G} \PYG{p}{=} \PYG{n}{double}\PYG{p}{(}\PYG{n}{img1}\PYG{p}{(:,:,}\PYG{l+m+mi}{2}\PYG{p}{));}
+\PYG{n}{img\PYGZus{}1\PYGZus{}B} \PYG{p}{=} \PYG{n}{double}\PYG{p}{(}\PYG{n}{img1}\PYG{p}{(:,:,}\PYG{l+m+mi}{3}\PYG{p}{));}
+
+
+\PYG{n}{img1} \PYG{p}{=} \PYG{n}{padarray}\PYG{p}{(}\PYG{n}{img1}\PYG{p}{,} \PYG{p}{[}\PYG{n}{pad} \PYG{n}{pad}\PYG{p}{],} \PYG{l+s}{\PYGZsq{}both\PYGZsq{}}\PYG{p}{);}
+\PYG{n}{img2} \PYG{p}{=} \PYG{n}{padarray}\PYG{p}{(}\PYG{n}{img2}\PYG{p}{,} \PYG{p}{[}\PYG{n}{pad} \PYG{n}{pad}\PYG{p}{],} \PYG{l+s}{\PYGZsq{}both\PYGZsq{}}\PYG{p}{);}
+
+
+\PYG{n}{img\PYGZus{}1\PYGZus{}R} \PYG{p}{=} \PYG{n}{convolve}\PYG{p}{(}\PYG{n}{img\PYGZus{}1\PYGZus{}R}\PYG{p}{,}\PYG{n}{gaussian\PYGZus{}temp}\PYG{p}{);}
+\PYG{n}{img\PYGZus{}1\PYGZus{}G} \PYG{p}{=} \PYG{n}{convolve}\PYG{p}{(}\PYG{n}{img\PYGZus{}1\PYGZus{}G}\PYG{p}{,}\PYG{n}{gaussian\PYGZus{}temp}\PYG{p}{);}
+\PYG{n}{img\PYGZus{}1\PYGZus{}B} \PYG{p}{=} \PYG{n}{convolve}\PYG{p}{(}\PYG{n}{img\PYGZus{}1\PYGZus{}B}\PYG{p}{,}\PYG{n}{gaussian\PYGZus{}temp}\PYG{p}{);}
+\PYG{c}{\PYGZpc{} Remove the padding post convolution}
+\PYG{n}{img\PYGZus{}1\PYGZus{}R} \PYG{p}{=} \PYG{n}{img\PYGZus{}1\PYGZus{}R}\PYG{p}{(}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{,}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{);}
+\PYG{n}{img\PYGZus{}1\PYGZus{}G} \PYG{p}{=} \PYG{n}{img\PYGZus{}1\PYGZus{}G}\PYG{p}{(}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{,}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{);}
+\PYG{n}{img\PYGZus{}1\PYGZus{}B} \PYG{p}{=} \PYG{n}{img\PYGZus{}1\PYGZus{}B}\PYG{p}{(}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{,}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{);}
+\PYG{n}{img\PYGZus{}1\PYGZus{}low} \PYG{p}{=} \PYG{n+nb}{cat}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{img\PYGZus{}1\PYGZus{}R}\PYG{p}{,} \PYG{n}{img\PYGZus{}1\PYGZus{}G}\PYG{p}{,} \PYG{n}{img\PYGZus{}1\PYGZus{}B} \PYG{p}{);}
+\PYG{n}{figure}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{clf}\PYG{p}{;}
+\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{imshow}\PYG{p}{(}\PYG{n}{uint8}\PYG{p}{(}\PYG{n}{img\PYGZus{}1\PYGZus{}low}\PYG{p}{));}
+\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{),} \PYG{n}{imshow}\PYG{p}{(}\PYG{n}{uint8}\PYG{p}{(}\PYG{n}{img1}\PYG{p}{));}
+
+\PYG{c}{\PYGZpc{} sigma = 5.0;}
+\PYG{c}{\PYGZpc{} win\PYGZus{}size = round(8.0 * sigma + 1.0);}
+\PYG{c}{\PYGZpc{} if (rem(win\PYGZus{}size,2) == 0) }
+\PYG{c}{\PYGZpc{}     win\PYGZus{}size = win\PYGZus{}size + 1;}
+\PYG{c}{\PYGZpc{} end}
+\PYG{c}{\PYGZpc{} pad = (win\PYGZus{}size \PYGZhy{} 1) / 2;}
+\PYG{n}{gaussian\PYGZus{}temp} \PYG{p}{=} \PYG{n}{gaussian\PYGZus{}template}\PYG{p}{(}\PYG{n}{win\PYGZus{}size}\PYG{p}{,}\PYG{n}{sigma}\PYG{p}{);}
+\PYG{n}{img\PYGZus{}2\PYGZus{}R} \PYG{p}{=} \PYG{n}{double}\PYG{p}{(}\PYG{n}{img2}\PYG{p}{(:,:,}\PYG{l+m+mi}{1}\PYG{p}{));}
+\PYG{n}{img\PYGZus{}2\PYGZus{}G} \PYG{p}{=} \PYG{n}{double}\PYG{p}{(}\PYG{n}{img2}\PYG{p}{(:,:,}\PYG{l+m+mi}{2}\PYG{p}{));}
+\PYG{n}{img\PYGZus{}2\PYGZus{}B} \PYG{p}{=} \PYG{n}{double}\PYG{p}{(}\PYG{n}{img2}\PYG{p}{(:,:,}\PYG{l+m+mi}{3}\PYG{p}{));}
+
+\PYG{n}{img\PYGZus{}2\PYGZus{}R} \PYG{p}{=} \PYG{n}{img\PYGZus{}2\PYGZus{}R} \PYG{o}{\PYGZhy{}} \PYG{n}{convolve}\PYG{p}{(}\PYG{n}{img\PYGZus{}2\PYGZus{}R}\PYG{p}{,}\PYG{n}{gaussian\PYGZus{}temp}\PYG{p}{);}
+\PYG{n}{img\PYGZus{}2\PYGZus{}G} \PYG{p}{=} \PYG{n}{img\PYGZus{}2\PYGZus{}G} \PYG{o}{\PYGZhy{}} \PYG{n}{convolve}\PYG{p}{(}\PYG{n}{img\PYGZus{}2\PYGZus{}G}\PYG{p}{,}\PYG{n}{gaussian\PYGZus{}temp}\PYG{p}{);}
+\PYG{n}{img\PYGZus{}2\PYGZus{}B} \PYG{p}{=} \PYG{n}{img\PYGZus{}2\PYGZus{}B} \PYG{o}{\PYGZhy{}} \PYG{n}{convolve}\PYG{p}{(}\PYG{n}{img\PYGZus{}2\PYGZus{}B}\PYG{p}{,}\PYG{n}{gaussian\PYGZus{}temp}\PYG{p}{);}
+\PYG{c}{\PYGZpc{} Remove the padding post convolution}
+\PYG{n}{img\PYGZus{}2\PYGZus{}R} \PYG{p}{=} \PYG{n}{img\PYGZus{}2\PYGZus{}R}\PYG{p}{(}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{,}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{);}
+\PYG{n}{img\PYGZus{}2\PYGZus{}G} \PYG{p}{=} \PYG{n}{img\PYGZus{}2\PYGZus{}G}\PYG{p}{(}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{,}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{);}
+\PYG{n}{img\PYGZus{}2\PYGZus{}B} \PYG{p}{=} \PYG{n}{img\PYGZus{}2\PYGZus{}B}\PYG{p}{(}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{,}\PYG{n}{pad}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{k}{end}\PYG{o}{\PYGZhy{}}\PYG{n}{pad}\PYG{p}{);}
+\PYG{n}{img\PYGZus{}2\PYGZus{}high} \PYG{p}{=} \PYG{n+nb}{cat}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{img\PYGZus{}2\PYGZus{}R}\PYG{p}{,} \PYG{n}{img\PYGZus{}2\PYGZus{}G}\PYG{p}{,} \PYG{n}{img\PYGZus{}2\PYGZus{}B} \PYG{p}{)} \PYG{o}{*} \PYG{l+m+mf}{1.1}\PYG{p}{;}
+\PYG{n}{figure}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{),} \PYG{n}{clf}\PYG{p}{;}
+\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{imshow}\PYG{p}{(}\PYG{n}{uint8}\PYG{p}{(}\PYG{n}{img\PYGZus{}2\PYGZus{}high}\PYG{p}{));}
+\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{),} \PYG{n}{imshow}\PYG{p}{(}\PYG{n}{uint8}\PYG{p}{(}\PYG{n}{img2}\PYG{p}{));}
+
+\PYG{n}{hybrid} \PYG{p}{=} \PYG{n}{uint8}\PYG{p}{(}\PYG{n}{img\PYGZus{}1\PYGZus{}low} \PYG{o}{+} \PYG{n}{img\PYGZus{}2\PYGZus{}high}\PYG{p}{);}
+\PYG{n}{figure}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{),} \PYG{n}{clf}\PYG{p}{;}
+\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{imshow}\PYG{p}{(}\PYG{n}{hybrid}\PYG{p}{);}
+\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{),} \PYG{n}{imshow}\PYG{p}{(}\PYG{n}{img1}\PYG{p}{);}
+\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{),} \PYG{n}{imshow}\PYG{p}{(}\PYG{n}{img2}\PYG{p}{);}
+
+\PYG{c}{\PYGZpc{} Resize the image for visualisation purposes}
+\PYG{n}{hybrid\PYGZus{}bigger} \PYG{p}{=} \PYG{n}{imresize}\PYG{p}{(} \PYG{n}{hybrid}\PYG{p}{,} \PYG{l+m+mf}{1.5} \PYG{p}{);}
+\PYG{n}{hybrid\PYGZus{}smaller} \PYG{p}{=} \PYG{n}{imresize}\PYG{p}{(} \PYG{n}{hybrid}\PYG{p}{,} \PYG{l+m+mf}{0.5} \PYG{p}{);}
+\PYG{n}{figure}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{),} \PYG{n}{clf}\PYG{p}{;}
+\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{imshow}\PYG{p}{(}\PYG{n}{hybrid\PYGZus{}smaller}\PYG{p}{);}
+\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{),} \PYG{n}{imshow}\PYG{p}{(}\PYG{n}{hybrid\PYGZus{}bigger}\PYG{p}{);}
+
+\PYG{n}{imwrite}\PYG{p}{(}\PYG{n}{hybrid}\PYG{p}{,} \PYG{l+s}{\PYGZsq{}fish\PYGZus{}submarine.jpg\PYGZsq{}}\PYG{p}{);}
+
+\PYG{c}{\PYGZpc{} Throw\PYGZhy{}away Code to resize some images}
+\PYG{c}{\PYGZpc{} img1 = imresize( img1, [340 400] );}
+\PYG{c}{\PYGZpc{} img1 = uint8(img1);}
+\PYG{c}{\PYGZpc{} img2 = imresize( img2, [340 400] );}
+\PYG{c}{\PYGZpc{} img2 = uint8(img2);}
+\PYG{c}{\PYGZpc{} figure(1), clf;}
+\PYG{c}{\PYGZpc{} subplot(2,2,1), imshow(img1);}
+\PYG{c}{\PYGZpc{} subplot(2,2,2), imshow(img2);}
+\PYG{c}{\PYGZpc{} }
+\PYG{c}{\PYGZpc{} imwrite( img1, \PYGZsq{}data/hilary\PYGZus{}smaller.jpg\PYGZsq{} );}
+\PYG{c}{\PYGZpc{} imwrite( img2, \PYGZsq{}data/trump\PYGZus{}tiny\PYGZus{}hands.jpg\PYGZsq{} );}
+\end{Verbatim}

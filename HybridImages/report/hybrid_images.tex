@@ -48,6 +48,31 @@
 
 \section{Convolution and Hybrid Images Algorithm}
 % In the report you need to describe your convolution and hybrid images algorithms (in particular, please include your code for the convolution implementation)
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.55\linewidth]{images/fish_submarine}
+	\caption{Hybrid Image of a fish and a submarine}
+	\label{fig:fish_submarine}
+\end{figure}
+The convolution algorithm can be used to generate an hybrid image as shown in figure \ref{fig:fish_submarine} and it works for any arbitrary image and a given odd numbered kernel size. \\
+
+The hybrid image algorithm works in 3 parts which are reading in the images, finding the high frequencies and low frequencies of the images and lastly combining them to form an hybrid image. The algorithm was implemented using Matlab and its implementation are further discussed in the following subsections.
+
+	\subsection{Reading in the Images}
+	Matlab provides functions for reading in images which is the \textit{imread} function. 
+	\begin{listing}[htbp!]
+		\inputminted[breaklines=true,breakautoindent=true,firstline=9,lastline=14]{matlab}{minty_matlab.m}
+		\caption{Reading in an image and separation of channels}
+		\label{code:algebraic} 
+	\end{listing}
+	The images are read and converted into doubles as they are stored as integers and need to be converted to work in Matlab.
+	
+	\subsection{Determining the Low and High Frequencies of the Image}
+	The Low frequency of the image is determined by generating a Gaussian kernel of a specified size. For a given kernel size e.g 7x7, with variance ($\sigma^2$) the resulting Gaussian Kernel is calculated by 
+		\begin{equation}
+			gaussian(x,y) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp-\frac{x^2 + y^2}{2\sigma^2}
+		\end{equation} 
+	
 % Any decisions you made to write your algorithms in a particular way. 
 \section{Results}
 % Then you should show and discuss the results of your algorithm, showing the results of your hybrid images algorithm (showing the image at a range of scales to show the effect)
