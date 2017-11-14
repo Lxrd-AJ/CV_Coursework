@@ -26,18 +26,24 @@ tchalf=floor(tcols/2);
 for x = trhalf+1:icols-trhalf %address all columns except border
   for y = tchalf+1:irows-tchalf %address all rows except border
     sum=0;
-    % TODO: Optimise this part using matrix slicing
-%     for iwin = 1:trows %address template columns
-%       for jwin = 1:tcols %address template rows
-%         sum=sum+image(y+jwin-tchalf-1,x+iwin-trhalf-1)*template(jwin,iwin);
-%       end
-%     end
-    [iwin, jwin] = size(template);
-    size(image)
-    sum = image(y:jwin, x:iwin) .* template;
-    temp(y,x)=sum;
+    for iwin = 1:trows %address template columns
+      for jwin = 1:tcols %address template rows
+        sum=sum+image(y+jwin-tchalf-1,x+iwin-trhalf-1)*template(jwin,iwin);
+        temp(y,x)= sum;
+      end
+    end
   end
 end
+
+
+% [iwin, jwin] = size(template);
+% for x = trhalf+1:icols-trhalf
+%     for y = tchalf+1:irows-tchalf    
+%         slice = image(y:y+jwin-1, x:x+iwin-1);
+%         total = slice .* template;
+%         temp(y,x)= sum(sum(total));
+%     end
+% end
 
 %finally, normalise the image
 convolved=normalise(temp);

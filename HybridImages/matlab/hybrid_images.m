@@ -1,4 +1,4 @@
-sigma = 4.5;
+sigma = 4.0;
 win_size = round(8.0 * sigma + 1.0);
 if (rem(win_size,2) == 0) 
     win_size = win_size + 1;
@@ -6,8 +6,8 @@ end
 pad = (win_size - 1) / 2;
 gaussian_temp = gaussian_template(win_size,sigma);
 
-img1 = imread('data/dog.bmp','bmp');
-img2 = imread('data/cat.bmp','bmp');
+img1 = imread('data/fish.bmp','bmp');
+img2 = imread('data/submarine.bmp','bmp');
 % pad the images against convolution
 img1 = padarray(img1, [pad pad], 'both');
 img2 = padarray(img2, [pad pad], 'both');
@@ -56,6 +56,13 @@ figure(3), clf;
 subplot(3,3,1), imshow(hybrid);
 subplot(3,3,2), imshow(img1);
 subplot(3,3,3), imshow(img2);
+
+% Resize the image for visualisation purposes
+hybrid_bigger = imresize( hybrid, 1.5 );
+hybrid_smaller = imresize( hybrid, 0.5 );
+figure(4), clf;
+subplot(2,2,1), imshow(hybrid_smaller);
+subplot(2,2,2), imshow(hybrid_bigger);
 
 imwrite(hybrid, 'hybrid.jpg');
 
