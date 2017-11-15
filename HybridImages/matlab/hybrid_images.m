@@ -1,4 +1,4 @@
-sigma = 3.5;
+sigma = 4.5;
 win_size = round(8.0 * sigma + 1.0);
 if (rem(win_size,2) == 0) 
     win_size = win_size + 1;
@@ -38,18 +38,17 @@ figure(4), clf;
 subplot(2,2,1), imshow(hybrid_smaller);
 subplot(2,2,2), imshow(hybrid_bigger);
 
-imwrite(hybrid, 'einstein_marilyn.jpg');
-
+imwrite(hybrid, 'hybrid.jpg');
+% 
 % Throw-away Code to resize some images
 % img1 = imresize( img1, [340 400] );
 % img1 = uint8(img1);
 % img2 = imresize( img2, [340 400] );
 % img2 = uint8(img2);
-% figure(1), clf;
-% subplot(2,2,1), imshow(img1);
-% subplot(2,2,2), imshow(img2);
+% img = imread('trump_hilary.jpg','jpg');
+% img = imresize( img, 0.5 );
+% imwrite( img, 'th_half.jpg' );
+% img = imresize( img, 0.5 );
+% imwrite( img, 'th_half_half.jpg' );
 % 
-% imwrite( img1, 'data/hilary_smaller.jpg' );
-% imwrite( img2, 'data/trump_tiny_hands.jpg' );
-
-
+% 

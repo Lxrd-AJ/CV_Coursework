@@ -42,7 +42,7 @@
 \tableofcontents
 \newpage
 \listoffigures
-\listoftables
+
 \listoflistings
 \newpage
 \pagenumbering{arabic}
@@ -92,13 +92,67 @@ The hybrid image algorithm works in 3 parts which are reading in the images, fin
 		\caption{High and Low Frequency Image}
 		\label{fig:uni_gauss}
 	\end{figure}
-	The image convolution code is further show in 
-% Any decisions you made to write your algorithms in a particular way. 
+	The image convolution code is further show in \ref{code:convolution} where the image is convolved with the template and normalised. 
+	\begin{listing}[htbp!]
+		\inputminted[breaklines=true,breakautoindent=true,firstline=85,lastline=107]{matlab}{minty_matlab.m}
+		\caption{Image Convolution and Normalisation}
+		\label{code:convolution} 
+	\end{listing}
+% Any decisions you made to write your algorithms in a particular way.
+	 
 \section{Results}
 % Then you should show and discuss the results of your algorithm, showing the results of your hybrid images algorithm (showing the image at a range of scales to show the effect)
-% show some of the intermediate images in the hybrid image pipeline (e.g. the low and high frequency images). 
-\section{Conclusion}
-% Also, discuss anything extra you did. Feel free to add any other information you feel is relevant.
+The hybrid image pipeline is as follows for the convolution of an image of Albert Einstein and Marilyn Monroe. 
+	\begin{itemize}
+		\item The low frequency of Einstein is obtained as shown in figure \ref{fig:pipe_ein}
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width=0.75\linewidth]{images/low_pipe_ein}
+				\caption{Low and Normal picture of Einstein}
+				\label{fig:pipe_ein}
+			\end{figure}
+		\item The high frequency of Marilyn Monroe is obtained as shown in figure \ref{fig:pipe_mar}
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width=0.75\linewidth]{images/high_mar_pipe}
+				\caption{High and Normal picture of Marilyn Monroe}
+				\label{fig:pipe_mar}
+			\end{figure}
+		\item And the Hybrid Image is shown in figure \ref{fig:conco}
+			\begin{figure}[h!]
+				\centering
+				\includegraphics[width=0.75\linewidth]{images/convolved}
+				\caption{Hybrid Image of Einstein and Marilyn}
+				\label{fig:conco}
+			\end{figure}
+	\end{itemize}
+% show some of the intermediate images in the hybrid image pipeline (e.g. the low and high frequency images).
+
+	\subsection{Images at Different Scale}
+	The effects of viewing the images at different scales are further shown below in figure \ref{fig:scales}.
+	\begin{figure}[h!]
+		\centering
+		\begin{subfigure}{0.65\textwidth}
+			\centering
+			\includegraphics[width=0.99\linewidth]{images/trump_hilary}
+			\caption{}
+			\label{}
+		\end{subfigure}
+		\begin{subfigure}{0.3\textwidth}
+			\centering
+			\includegraphics[width=0.99\linewidth]{images/th_half}
+			\caption{}
+			\label{}
+		\end{subfigure}
+		\begin{subfigure}{0.1\textwidth}
+			\centering
+			\includegraphics[width=0.99\linewidth]{images/th_half_half}
+			\caption{}
+			\label{}
+		\end{subfigure}
+		\caption{Viewing images at different scales}
+		\label{fig:scales}
+	\end{figure}
 
 
 

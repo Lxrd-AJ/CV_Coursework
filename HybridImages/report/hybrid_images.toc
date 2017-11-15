@@ -2,4 +2,4 @@
 \contentsline {subsection}{\numberline {1.1}Reading in the Images}{1}{subsection.1.1}
 \contentsline {subsection}{\numberline {1.2}Determining the Low and High Frequencies of the Image}{2}{subsection.1.2}
 \contentsline {section}{\numberline {2}Results}{2}{section.2}
-\contentsline {section}{\numberline {3}Conclusion}{2}{section.3}
+\contentsline {subsection}{\numberline {2.1}Images at Different Scale}{4}{subsection.2.1}

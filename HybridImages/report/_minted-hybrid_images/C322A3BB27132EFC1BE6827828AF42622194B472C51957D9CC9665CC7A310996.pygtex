@@ -80,4 +80,30 @@
 \PYG{c}{\PYGZpc{} }
 \PYG{c}{\PYGZpc{} imwrite( img1, \PYGZsq{}data/hilary\PYGZus{}smaller.jpg\PYGZsq{} );}
 \PYG{c}{\PYGZpc{} imwrite( img2, \PYGZsq{}data/trump\PYGZus{}tiny\PYGZus{}hands.jpg\PYGZsq{} );}
+
+
+\PYG{c}{\PYGZpc{}Convolution}
+\PYG{k}{function}\PYG{+w}{ }convolved \PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{convolve}\PYG{p}{(}image,template\PYG{p}{)}
+
+\PYG{p}{[}\PYG{n}{irows}\PYG{p}{,}\PYG{n}{icols}\PYG{p}{]=}\PYG{n+nb}{size}\PYG{p}{(}\PYG{n}{image}\PYG{p}{);}
+\PYG{p}{[}\PYG{n}{trows}\PYG{p}{,}\PYG{n}{tcols}\PYG{p}{]=}\PYG{n+nb}{size}\PYG{p}{(}\PYG{n}{template}\PYG{p}{);}
+\PYG{n}{temp}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{irows}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{icols}\PYG{p}{)=}\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{n}{trhalf}\PYG{p}{=}\PYG{n+nb}{floor}\PYG{p}{(}\PYG{n}{trows}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{);} 
+\PYG{n}{tchalf}\PYG{p}{=}\PYG{n+nb}{floor}\PYG{p}{(}\PYG{n}{tcols}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{);} 
+
+\PYG{k}{for} \PYG{n}{x} \PYG{p}{=} \PYG{n}{trhalf}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{icols}\PYG{o}{\PYGZhy{}}\PYG{n}{trhalf} 
+  \PYG{k}{for} \PYG{n}{y} \PYG{p}{=} \PYG{n}{tchalf}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{irows}\PYG{o}{\PYGZhy{}}\PYG{n}{tchalf}
+    \PYG{n}{sum}\PYG{p}{=}\PYG{l+m+mi}{0}\PYG{p}{;}
+    \PYG{k}{for} \PYG{n}{iwin} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{trows} 
+      \PYG{k}{for} \PYG{n}{jwin} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{tcols}
+        \PYG{n}{sum}\PYG{p}{=}\PYG{n}{sum}\PYG{o}{+}\PYG{n}{image}\PYG{p}{(}\PYG{n}{y}\PYG{o}{+}\PYG{n}{jwin}\PYG{o}{\PYGZhy{}}\PYG{n}{tchalf}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{x}\PYG{o}{+}\PYG{n}{iwin}\PYG{o}{\PYGZhy{}}\PYG{n}{trhalf}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{*}\PYG{n}{template}\PYG{p}{(}\PYG{n}{jwin}\PYG{p}{,}\PYG{n}{iwin}\PYG{p}{);}
+        \PYG{n}{temp}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,}\PYG{n}{x}\PYG{p}{)=} \PYG{n}{sum}\PYG{p}{;}
+      \PYG{k}{end}
+    \PYG{k}{end}
+  \PYG{k}{end}
+\PYG{k}{end}
+
+\PYG{n}{minim}\PYG{p}{=}\PYG{n}{min}\PYG{p}{(}\PYG{n}{min}\PYG{p}{(}\PYG{n}{temp}\PYG{p}{));}
+\PYG{n}{range}\PYG{p}{=}\PYG{n}{max}\PYG{p}{(}\PYG{n}{max}\PYG{p}{(}\PYG{n}{temp}\PYG{p}{))}\PYG{o}{\PYGZhy{}}\PYG{n}{minim}\PYG{p}{;}
+\PYG{n}{convolved} \PYG{p}{=} \PYG{n+nb}{floor}\PYG{p}{(} \PYG{p}{(}\PYG{n}{temp} \PYG{o}{\PYGZhy{}} \PYG{n}{minim}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{255}\PYG{o}{/}\PYG{n}{range} \PYG{p}{);}
 \end{Verbatim}
