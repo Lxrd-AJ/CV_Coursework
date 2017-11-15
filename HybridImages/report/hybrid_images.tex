@@ -13,6 +13,8 @@
 \usepackage{rotating}
 \usepackage{mdframed}
 \usepackage{wrapfig}
+\usepackage{bm}
+\usepackage{subcaption}
 %\usepackage{fontspec}
 
 \hypersetup{ colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan }
@@ -50,7 +52,7 @@
 % In the report you need to describe your convolution and hybrid images algorithms (in particular, please include your code for the convolution implementation)
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.55\linewidth]{images/fish_submarine}
+	\includegraphics[width=0.35\linewidth]{images/fish_submarine}
 	\caption{Hybrid Image of a fish and a submarine}
 	\label{fig:fish_submarine}
 \end{figure}
@@ -72,7 +74,25 @@ The hybrid image algorithm works in 3 parts which are reading in the images, fin
 		\begin{equation}
 			gaussian(x,y) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp-\frac{x^2 + y^2}{2\sigma^2}
 		\end{equation} 
-	
+	The convolution of the Gaussian kernel and the image produce a low frequency image as shown in figure \ref{fig:low_ein}. The high frequency of the image is obtained by subtracting the low frequency from the original image and an example is shown in figure \ref{fig:high_freq}.
+	\begin{figure}[h!]
+		\centering
+		\begin{subfigure}{0.4\textwidth}
+			\centering
+			\includegraphics[width=0.99\linewidth]{images/low_freq_ein}
+			\caption{Low Frequency Image}
+			\label{fig:low_ein}
+		\end{subfigure}
+		\begin{subfigure}{0.4\textwidth}
+			\centering
+			\includegraphics[width=0.99\linewidth]{images/high_freq_mar}
+			\caption{High Frequency Image}
+			\label{fig:high_freq}
+		\end{subfigure}
+		\caption{High and Low Frequency Image}
+		\label{fig:uni_gauss}
+	\end{figure}
+	The image convolution code is further show in 
 % Any decisions you made to write your algorithms in a particular way. 
 \section{Results}
 % Then you should show and discuss the results of your algorithm, showing the results of your hybrid images algorithm (showing the image at a range of scales to show the effect)

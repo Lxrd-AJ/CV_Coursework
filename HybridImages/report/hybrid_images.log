@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.28)  14 NOV 2017 17:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.28)  15 NOV 2017 14:24
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -646,7 +646,42 @@ Package zref Info: New property: mdf@pagevalue on input line 895.
 \WF@everypar=\toks27
 Package: wrapfig 2003/01/31  v 3.6
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 18.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/tools/bm.sty
+Package: bm 2016/02/27 v1.2a Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup4
+\symboldletters=\mathgroup5
+\symboldsymbols=\mathgroup6
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 142.
+LaTeX Info: Redefining \bm on input line 208.
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen175
+\captionmargin@=\dimen176
+\captionwidth=\dimen177
+\caption@tempdima=\dimen178
+\caption@indent=\dimen179
+\caption@parindent=\dimen180
+\caption@hangindent=\dimen181
+)
+\c@ContinuedFloat=\count178
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: rotating package is loaded.
+Package caption Info: wrapfig package is loaded.
+)
+\c@subfigure=\count179
+\c@subtable=\count180
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 20.
 runsystem(which "pygmentize" && touch "hybrid_images.aex")...executed.
 
 runsystem(rm "hybrid_images.aex")...executed.
@@ -655,20 +690,20 @@ runsystem(rm "hybrid_images.aex")...executed.
 (./hybrid_images.aux)
 \openout1 = `hybrid_images.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -706,16 +741,16 @@ LaTeX Font Info:    ... okay on input line 22.
 
 (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count178
-\scratchdimen=\dimen175
+\scratchcounter=\count181
+\scratchdimen=\dimen182
 \scratchbox=\box60
-\nofMPsegments=\count179
-\nofMParguments=\count180
+\nofMPsegments=\count182
+\nofMParguments=\count183
 \everyMPshowfont=\toks28
-\MPscratchCnt=\count181
-\MPscratchDim=\dimen176
-\MPnumerator=\count182
-\makeMPintoPDFobject=\count183
+\MPscratchCnt=\count184
+\MPscratchDim=\dimen183
+\MPnumerator=\count185
+\makeMPintoPDFobject=\count186
 \everyMPtoPDFconversion=\toks29
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -733,7 +768,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box61
-Package hyperref Info: Link coloring ON on input line 22.
+Package hyperref Info: Link coloring ON on input line 24.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -741,19 +776,22 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count184
+\c@section@level=\count187
 )
-LaTeX Info: Redefining \ref on input line 22.
-LaTeX Info: Redefining \pageref on input line 22.
-LaTeX Info: Redefining \nameref on input line 22.
+LaTeX Info: Redefining \ref on input line 24.
+LaTeX Info: Redefining \pageref on input line 24.
+LaTeX Info: Redefining \nameref on input line 24.
 
 (./hybrid_images.out) (./hybrid_images.out)
 \@outlinefile=\write6
 \openout6 = `hybrid_images.out'.
 
-\c@lstlisting=\count185
+\c@lstlisting=\count188
 
-(./_minted-hybrid_images/default-pyg-prefix.pygstyle) [1
+(./_minted-hybrid_images/default-pyg-prefix.pygstyle)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+ [1
 
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./hybr
 id_images.toc)
@@ -774,14 +812,14 @@ id_images.toc)
 \openout10 = `hybrid_images.lol'.
 
  [2]
-<images/fish_submarine.jpg, id=53, 376.40625pt x 308.15125pt>
+<images/fish_submarine.jpg, id=55, 376.40625pt x 308.15125pt>
 File: images/fish_submarine.jpg Graphic file (type jpg)
 
 <use images/fish_submarine.jpg>
-Package pdftex.def Info: images/fish_submarine.jpg used on input line 53.
-(pdftex.def)             Requested size: 230.04079pt x 188.33403pt.
+Package pdftex.def Info: images/fish_submarine.jpg used on input line 55.
+(pdftex.def)             Requested size: 146.39133pt x 119.84935pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 57--58
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
 
  []
 
@@ -789,44 +827,57 @@ Underfull \hbox (badness 10000) in paragraph at lines 57--58
 (./_minted-hybrid_images/1506402C4FB952578F2A41F0714C5FE22194B472C51957D9CC9665
 CC7A310996.pygtex)
 Package hyperref Info: bookmark level for unknown listing defaults to 0 on inpu
-t line 65.
+t line 67.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.72 		\begin{equation}
+l.74 		\begin{equation}
                         [1 <./images/fish_submarine.jpg>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 85.
- [2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 85.
+<images/low_freq_ein.jpg, id=64, 225.84375pt x 265.99374pt>
+File: images/low_freq_ein.jpg Graphic file (type jpg)
 
-(./hybrid_images.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 85.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 85.
+<use images/low_freq_ein.jpg>
+Package pdftex.def Info: images/low_freq_ein.jpg used on input line 82.
+(pdftex.def)             Requested size: 165.62683pt x 195.08296pt.
+
+<images/high_freq_mar.jpg, id=65, 225.84375pt x 265.99374pt>
+File: images/high_freq_mar.jpg Graphic file (type jpg)
+
+<use images/high_freq_mar.jpg>
+Package pdftex.def Info: images/high_freq_mar.jpg used on input line 88.
+(pdftex.def)             Requested size: 165.62683pt x 195.08296pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 104.
+ [2 <./images/low_freq_ein.jpg> <./images/high_freq_mar.jpg>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 104.
+ (./hybrid_images.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 104.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 104.
 Package rerunfilecheck Info: File `hybrid_images.out' has not changed.
 (rerunfilecheck)             Checksum: ED266395D994F6D8BDE7841A8436FDA4;333.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 85.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 104.
  ) 
 Here is how much of TeX's memory you used:
- 17646 strings out of 493014
- 313804 string characters out of 6133350
- 423228 words of memory out of 5000000
- 20989 multiletter control sequences out of 15000+600000
- 10449 words of font info for 38 fonts, out of 8000000 for 9000
+ 18816 strings out of 493014
+ 334652 string characters out of 6133350
+ 445184 words of memory out of 5000000
+ 22132 multiletter control sequences out of 15000+600000
+ 15665 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,7n,42p,10422b,425s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,9n,42p,10422b,500s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></
-usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></us
-r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/l
-ocal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
-cal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/loc
-al/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on hybrid_images.pdf (5 pages, 96611 bytes).
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
+usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
+r/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
+local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loc
+al/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
+l/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local
+/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on hybrid_images.pdf (5 pages, 121905 bytes).
 PDF statistics:
- 100 PDF objects out of 1000 (max. 8388607)
- 83 compressed objects within 1 object stream
- 17 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 110 PDF objects out of 1000 (max. 8388607)
+ 90 compressed objects within 1 object stream
+ 18 named destinations out of 1000 (max. 500000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 
