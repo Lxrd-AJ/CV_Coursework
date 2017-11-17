@@ -1,0 +1,58 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[]{geometry} 
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{mdframed}
+\usepackage{wrapfig}
+\usepackage{bm}
+\usepackage{subcaption}
+%\usepackage{fontspec}
+
+\hypersetup{ colorlinks=true, linkcolor=blue, filecolor=magenta, urlcolor=cyan }
+\renewcommand\listoflistingscaption{List of source codes}
+%\setmonofont{Consolas}
+
+\begin{document}
+	
+\begin{titlepage}
+	\title{
+		COMP6223 Computer Vision \\
+		\large Subverting Face Detection
+	}
+	\date{\today}
+	\author{
+		Ganiyu Ajibola Ibraheem \\
+		\large gai1u17@soton.ac.uk \\
+			29447267
+	}
+\end{titlepage}
+
+\maketitle
+\newpage
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\listoffigures
+
+\listoflistings
+\newpage
+\pagenumbering{arabic}
+
+
+\section{Introduction}
+
+\section{Limitation of the Algorithm}
+	\begin{itemize}
+		\item The entire face must point towards the camera and should not be tilted to either side.
+	\end{itemize}
+
+\end{document}
