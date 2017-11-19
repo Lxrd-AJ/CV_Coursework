@@ -49,10 +49,38 @@
 
 
 \section{Introduction}
+This report highlight the different ways the Viola-Jones Haar Cascade Face detection algorithm can be subverted. This is achieved through applying specially orchestrated make-up at designated parts of the face and also wearing clothing which occludes certain aspects of the face whilst still remaining recognisable by a human.
 
-\section{Limitation of the Algorithm}
-	\begin{itemize}
-		\item The entire face must point towards the camera and should not be tilted to either side.
-	\end{itemize}
+\section{Subverting by applying make-up on the face}
+Taking into account the way the Viola-Jones Haar Cascade Face Detection algorithm (referred to as Face Detection algorithm henceforth) works, one can carefully curate features on the face to trick the algorithm into not detecting a face. \\
+	\begin{wrapfigure}{r}{0.5\textwidth} 
+		\centering
+		\includegraphics[width=0.6\textwidth]{images/make_up}
+		\caption{Applying make-up to subvert the algorithm}
+		\label{fig:make_up}
+	\end{wrapfigure}
+One of the ways this is achieved is with the knowledge that the face detection algorithm uses a window where the average intensity of the rectangular window divided into 3 parts with the middle part being the nose and the other windows being the eyes; it expects a darker region on the sections over the eyes than the section over the nose. \\
+	
+Taking this into account, white face make-up is applied over the eyes and dark face make-up is applied over the nose bridge. With these special effects applied, when the rectangular window slides over the face, this should result in higher intensity values over the eyes and a lower value over the middle section; the algorithm should then misclassify this region. As shown in image \ref{fig:make_up}, there is no bounding box over the face as the algorithm has misclassified this as not a face.
 
+
+\section{Subverting by partially occluding the face}
+The Face detection algorithm takes into account the location of the eyes, nose and mouth. 
+	\begin{wrapfigure}{l}{0.5\textwidth} 
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/spoof_julia_aj}
+		\caption{Partially occluding the face}
+		\label{fig:julia}
+	\end{wrapfigure}
+By partially occluding the face as shown in image \ref{fig:julia}, the algorithm is unable to locate the eyes in the image. 
+
+%%\section{Spoofing Approaches}
+%%	\begin{itemize}
+%%		\item The eye region is darker than the upper-cheeks. To subvert this try white paint around both eyes; check if it detects a face if eyes are opened and closed. Another approach is to make the upper-checks the same complexion as the eye region although this might be harder.
+%%		\item The nose bridge region is brighter than the eyes. Can we try making the nose bridge really dark e.g black paint on the nose bridge.
+%%		\item Occlusion: The algorithm takes into account the location of the eyes, nose and mouth. Is it possible to use make-up to blend the skin color around these regions to see if it still detects 
+%%	\end{itemize}
+
+\section{Conclusion}
+YOLO (You only look once)
 \end{document}
