@@ -33,6 +33,7 @@ if __name__ == "__main__":
 
         print("{:} as label {:}".format(img_path,label))
     
+    #TODO: Parameter tuning for the kNN classifier http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
     model = KNeighborsClassifier(n_neighbors=5, n_jobs=-1)
     model.fit( feature_vecs, labels )
     
@@ -51,7 +52,6 @@ if __name__ == "__main__":
         labels.append(label)
 
         prediction = model.predict( [hist] )[0]
-        #TODO Save to a file
         with open('./run1.txt','a') as f:
             entry = "{:} {:}\n".format(label, prediction)
             f.write(entry)
