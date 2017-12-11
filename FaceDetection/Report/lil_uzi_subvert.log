@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.28)  19 NOV 2017 23:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.11.28)  28 NOV 2017 16:30
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -799,116 +799,111 @@ uzi_subvert.toc)
 \openout7 = `lil_uzi_subvert.toc'.
 
 
-[1] (./lil_uzi_subvert.lof)
+(./lil_uzi_subvert.lof)
 \tf@lof=\write8
 \openout8 = `lil_uzi_subvert.lof'.
 
- (./lil_uzi_subvert.lol)
-\tf@lol=\write9
-\openout9 = `lil_uzi_subvert.lol'.
-
- [2]
-<images/make_up.jpg, id=47, 642.4pt x 481.8pt>
+ [1] <images/make_up.jpg, id=42, 642.4pt x 481.8pt>
 File: images/make_up.jpg Graphic file (type jpg)
- <use images/make_up.jpg>
-Package pdftex.def Info: images/make_up.jpg used on input line 58.
+
+<use images/make_up.jpg>
+Package pdftex.def Info: images/make_up.jpg used on input line 55.
 (pdftex.def)             Requested size: 250.95476pt x 188.21736pt.
 
-Overfull \hbox (41.82793pt too wide) in paragraph at lines 58--59
+Overfull \hbox (41.82793pt too wide) in paragraph at lines 55--56
  [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--61
+Underfull \hbox (badness 10000) in paragraph at lines 52--58
 
  []
 
 
-Underfull \hbox (badness 2443) in paragraph at lines 61--63
+Underfull \hbox (badness 2443) in paragraph at lines 58--60
 []\OT1/cmr/m/n/12 One of the ways this is achieved
  []
 
 
-Underfull \hbox (badness 7740) in paragraph at lines 61--63
+Underfull \hbox (badness 7740) in paragraph at lines 58--60
 \OT1/cmr/m/n/12 is with the knowl-edge that the
  []
 
 
-Underfull \hbox (badness 2065) in paragraph at lines 61--63
+Underfull \hbox (badness 2065) in paragraph at lines 58--60
 \OT1/cmr/m/n/12 3 parts with the mid-dle part be-
  []
 
 
-Underfull \hbox (badness 3158) in paragraph at lines 61--63
+Underfull \hbox (badness 3158) in paragraph at lines 58--60
 \OT1/cmr/m/n/12 ing the nose and the other win-
  []
 
 
-Underfull \hbox (badness 1377) in paragraph at lines 61--63
+Underfull \hbox (badness 1377) in paragraph at lines 58--60
 \OT1/cmr/m/n/12 dows be-ing the eyes; it ex-pects a
  []
 
 
-Underfull \hbox (badness 1803) in paragraph at lines 61--63
+Underfull \hbox (badness 1803) in paragraph at lines 58--60
 \OT1/cmr/m/n/12 darker re-gion on the sec-tions over
  []
 
 
-Underfull \hbox (badness 1043) in paragraph at lines 61--63
+Underfull \hbox (badness 1043) in paragraph at lines 58--60
 \OT1/cmr/m/n/12 the eyes than the sec-tion over the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--63
+Underfull \hbox (badness 10000) in paragraph at lines 58--60
 
  []
 
-<images/spoof_julia_aj.jpg, id=49, 642.4pt x 481.8pt>
+<images/spoof_julia_aj.jpg, id=44, 642.4pt x 481.8pt>
 File: images/spoof_julia_aj.jpg Graphic file (type jpg)
 
 <use images/spoof_julia_aj.jpg>
-Package pdftex.def Info: images/spoof_julia_aj.jpg used on input line 71.
-(pdftex.def)             Requested size: 209.12683pt x 156.84044pt.
+Package pdftex.def Info: images/spoof_julia_aj.jpg used on input line 72.
+(pdftex.def)             Requested size: 150.56798pt x 112.92159pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 68--74
-\OT1/cmr/m/n/12 mouth.
- []
-
+<images/hand_nose.jpg, id=45, 642.4pt x 481.8pt>
+File: images/hand_nose.jpg Graphic file (type jpg)
+ <use images/hand_nose.jpg>
+Package pdftex.def Info: images/hand_nose.jpg used on input line 78.
+(pdftex.def)             Requested size: 150.56798pt x 112.92159pt.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.74 	\end{wrapfigure}
-                       [1 <./images/make_up.jpg>]
-Underfull \hbox (badness 1917) in paragraph at lines 74--76
-[]\OT1/cmr/m/n/12 By par-tially oc-clud-ing the face as
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 86.
-[2 <./images/spoof_julia_aj.jpg>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 86.
+l.86 
+      [1 <./images/make_up.jpg>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 107.
+ [2 <./images/spoof_julia_aj.jpg> <./images/hand_nose.jpg>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 107.
  (./lil_uzi_subvert.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 86.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 86.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 107.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 107.
 Package rerunfilecheck Info: File `lil_uzi_subvert.out' has not changed.
 (rerunfilecheck)             Checksum: DCD7B3AE406D06371726162276AF9934;246.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 86.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 107.
  ) 
 Here is how much of TeX's memory you used:
- 18771 strings out of 493014
- 333553 string characters out of 6133350
- 445884 words of memory out of 5000000
- 22100 multiletter control sequences out of 15000+600000
- 15018 words of font info for 53 fonts, out of 8000000 for 9000
+ 18785 strings out of 493014
+ 333850 string characters out of 6133350
+ 447108 words of memory out of 5000000
+ 22115 multiletter control sequences out of 15000+600000
+ 15665 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,7n,42p,10424b,347s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,9n,42p,10424b,500s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
-/usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on lil_uzi_subvert.pdf (5 pages, 105208 bytes).
+></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+/usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
+sr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr
+/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on lil_uzi_subvert.pdf (4 pages, 157551 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
+ 85 PDF objects out of 1000 (max. 8388607)
+ 70 compressed objects within 1 object stream
  14 named destinations out of 1000 (max. 500000)
- 43 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 48 words of extra memory for PDF output out of 10000 (max. 10000000)
 
