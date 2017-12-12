@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
         print("{:} as label {:}".format(img_path,label))
     
-    #TODO: Parameter tuning for the kNN classifier http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
+    #TODO: Parameter tuning for the kNN classifier i.e GridSearch http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
     model = KNeighborsClassifier(n_neighbors=5, n_jobs=-1)
     model.fit( feature_vecs, labels )
     
