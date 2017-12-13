@@ -7,6 +7,9 @@ from sklearn.cluster import KMeans
 from sklearn.metrics.pairwise import paired_distances
 from sklearn.externals import joblib
 from functools import reduce
+from sklearn.svm import SVC
+from sklearn.model_selection import cross_val_score
+from sklearn.utils import shuffle
 
 def build_dictionary( dir_name ):
     img_dict = {}
@@ -20,7 +23,7 @@ def build_dictionary( dir_name ):
             img_file = os.path.join( name,file )
             img = cv2.imread( img_file )
             if img is None:
-                print("Empty image " + img_file)
+                print("Not an image " + img_file)
                 continue
             img_dict[word].append(img)
             count += 1
@@ -30,7 +33,8 @@ def features( image ):
     sift_extractor = cv2.xfeatures2d.SIFT_create()
     desc = sift_extractor.detectAndCompute( image,None )[1]
     #TODO: Remove later, temp hack to make it run faster
-    desc = desc[:,:5]
+    # The clusters would have to be recalculated if this is changed
+    desc = desc[:,50:60]
     return desc
 
 def build_features_dict( img_dict ):
@@ -68,9 +72,57 @@ def bag_of_words( image_feat, clusters ):
         X[key] = value
     return X
 
+def train_classifiers( labels, X, y):
+    #TODO: Grid search for the SVC for choosing best parameters
+    classifiers = []
+    for label in labels:
+        #Split the data into 1-vs-all
+        y_train = np.where( y == label, label, "Non-" + label)
+        pos_x = X[np.where(y == label)]
+        pos_y = y_train[np.where(y == label)]
+        neg_x = X[np.where(y != label)]
+        neg_y = y_train[np.where(y != label)]
+        amount = pos_y.shape[0]
+
+        #Shuffle negative y and x values and take `amount` from them
+        neg_x, neg_y = shuffle( neg_x, neg_y, random_state=0)
+        neg_x = neg_x[:amount,:]
+        neg_y = neg_y[:amount]
+
+        y_train = np.concatenate( (pos_y,neg_y), axis=0 )
+        X_train = np.concatenate( (pos_x,neg_x), axis=0 )
+
+        X_train, y_train = shuffle( X_train, y_train, random_state=0)
+        svm = SVC(probability=True)
+        svm.fit( X_train, y_train)
+        acc = svm.score( X_train, y_train )
+        print("Train score for {:} vs Non-{:} SVM classifier; accuracy: {:.2f}%".format(label, label, acc * 100))
+        classifiers.append( (label,svm) )
+    return classifiers
+
+def make_prediction( input_vec, classifiers ):
+    input_vec = input_vec.reshape(1,-1)
+    prediction = None 
+    largest_prob = -1
+    for (label, clf) in classifiers:
+        res = clf.predict(input_vec)[0]
+        probs = clf.predict_proba(input_vec)[0]
+        classes = clf.classes_.tolist()
+        prob = probs[classes.index(label)]
+        if largest_prob < prob:
+            largest_prob = prob
+            prediction = label
+        # print("{:}, prob = {:}, classes = {:}".format(
+        #     res,
+        #     probs,
+        #     classes
+        # ))
+    # print("Largest probab = " + str(largest_prob))
+    return prediction
+
 if __name__ == "__main__":
-    precomputed = True
-    dic, count = build_dictionary("./training")    
+    dic, count = build_dictionary("./training") 
+    print("Calculating the features for " + str(count) + " images")   
     ft_dict = build_features_dict( dic )
 
     if os.path.exists('pt2_clusters.pkl'):
@@ -86,7 +138,7 @@ if __name__ == "__main__":
         X = np.array(X)
         print("Input data shape = {:}".format(X.shape))   
         #TODO: Preprocess X, normalise(X)
-        kmeans = KMeans(n_clusters=50, n_jobs=-1) .fit(X) #TODO: Hack should be 500 clusters
+        kmeans = KMeans(n_clusters=100, n_jobs=-1) .fit(X) #TODO: Hack should be 500 clusters
         joblib.dump( kmeans, 'pt2_clusters.pkl')
 
     X = []
@@ -98,9 +150,21 @@ if __name__ == "__main__":
             y.append(label)
     X = np.array(X)
     y = np.array(y)
-    print(X)
-    print("X shape = {:}".format(X.shape))
-    print(y.shape)
     
-    #TODO: Grid search for the SVC for choosing best parameters
-    #TODO: Train one vs all classifier for each label
+    classifiers = train_classifiers( ft_dict.keys(), X, y)
+    
+    img_paths = paths.list_images("./testing")
+    # img_paths = list(img_paths)[:2]
+    clusters = kmeans.cluster_centers_
+
+    with open('./run2.txt', 'a') as f:
+        for img_path in img_paths:
+            label = img_path.split( os.path.sep )[2]
+            # print(label) #Visual Verification only
+            image = cv2.imread(img_path)
+            fts = features( image )
+            ft_vec = bag_of_words( fts, clusters)
+            pred_label = make_prediction( ft_vec, classifiers)            
+            entry = "{:} {:}\n".format(label, pred_label)
+            f.write(entry)
+            print(entry)
