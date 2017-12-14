@@ -20,8 +20,12 @@ Calculates the histogram for a vector
 """
 def histogram(vec, bin_size=8):
     hist = cv2.calcHist([vec], [0], None, [bin_size], [0,256])
-    cv2.normalize(hist, hist)
-    return hist.flatten()
+    hist = hist.flatten()
+    mean = cv2.mean(hist)[0]
+    mag = np.sqrt(hist.dot(hist))
+    hist[:] = [x - mean for x in hist]
+    hist[:] = [x / mag for x in hist]
+    return hist
 
 """
 Helper function that simply returns the label or class of the image given its path
