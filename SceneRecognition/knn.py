@@ -13,7 +13,6 @@ Extracts features from an image and returns it which can
 be used to train a classifier
 """
 def feature_vector(image, size=(16,16)):
-    # TODO: Crop the image about the center
     return cv2.resize(image, size).flatten()
 
 """
