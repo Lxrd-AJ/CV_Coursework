@@ -54,11 +54,11 @@ if __name__ == "__main__":
 
         print("{:} as label {:}".format(img_path,label))
     
-    #TODO: Shuffle the datat
-    #TODO: Parameter tuning for the kNN classifier i.e GridSearch http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
+    #TODO: Shuffle the dataset
+    #TODO: Parameter tuning for the kNN classifier i.e GridSearch http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html (Optional)
     model = KNeighborsClassifier(n_neighbors=5, n_jobs=-1)
     model.fit( feature_vecs, labels )
-    #TODO: Perform cross validation on the dataset
+    #TODO: Perform cross validation on the dataset (Optional)
     acc = model.score( feature_vecs, labels )
     print("kNN accuracy: {:.2f}%".format(acc * 100))
     
@@ -77,6 +77,6 @@ if __name__ == "__main__":
             f.write(entry)
             print(entry)
     
-    #TODO: Generate plots for use in report
+    #TODO: Generate plots for use in report 
     
         

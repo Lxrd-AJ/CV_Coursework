@@ -51,6 +51,20 @@ model.add(Dense(class_num+1, activation='softmax'))
 
 sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy',optimizer=sgd,metrics=['accuracy'])
-model.fit(X,y,batch_size=50,epochs=10,verbose=1)
+model.fit(X,y,batch_size=100,epochs=10,verbose=1)
 score = model.evaluate(X, y, batch_size=128)
 print("Training score = " + str(score))
+
+
+#Predictions
+X_test = []
+img_paths = paths.list_images("./testing")
+for image in img_paths:
+    img = cv2.imread( image, 0)
+    img = cv2.resize( img, size)
+    X_test.append(img)
+X_test = np.array(X_test)
+X_test = X.reshape(X_test.shape[0],size[0],size[1],1)
+X_test = X_test / 255 
+predictions = model.predict(X_test)
+print(predictions)

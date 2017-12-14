@@ -29,6 +29,7 @@ def build_dictionary( dir_name ):
             count += 1
     return (img_dict, count)
 
+#TODO: Don't use SIFT for the features anymore, use the method specified in assignment
 def features( image ):
     sift_extractor = cv2.xfeatures2d.SIFT_create()
     desc = sift_extractor.detectAndCompute( image,None )[1]
@@ -73,7 +74,7 @@ def bag_of_words( image_feat, clusters ):
     return X
 
 def train_classifiers( labels, X, y):
-    #TODO: Grid search for the SVC for choosing best parameters
+    #TODO: Grid search for the SVC for choosing best parameters (Optional)
     classifiers = []
     for label in labels:
         #Split the data into 1-vs-all
@@ -137,7 +138,7 @@ if __name__ == "__main__":
             X.extend(entry)
         X = np.array(X)
         print("Input data shape = {:}".format(X.shape))   
-        #TODO: Preprocess X, normalise(X)
+        #TODO: Preprocess X, normalise(X) as specified in assignment
         kmeans = KMeans(n_clusters=100, n_jobs=-1) .fit(X) #TODO: Hack should be 500 clusters
         joblib.dump( kmeans, 'pt2_clusters.pkl')
 
