@@ -69,7 +69,7 @@ if __name__ == "__main__":
     
     # ---------> Set number of cross-validation runs (n_splits) and range of to be tested k's (list(range(1,100)) <-----------
     # shuffle the data using a cross-validation shuffleSplitter
-    cv = ShuffleSplit(n_splits=50, test_size=0.3, random_state=None)
+    cv = ShuffleSplit(n_splits=1, test_size=0.3, random_state=None)
     # creating odd list of K for KNN
     myList = list(range(1,100))
 
@@ -84,7 +84,7 @@ if __name__ == "__main__":
         model = KNeighborsClassifier(n_neighbors=k, n_jobs=-1)
         scores = cross_val_score(model, feature_vecs, labels, cv=cv, scoring='accuracy')
         cv_scores.append(scores.mean())
-        print("Finished CV: {:.2f}%".format(k))
+        print("Finished CV: {:.2f}%".format((k/(np.size(neighbors)*2))*100))
     # changing to misclassification error
     MSE = [1 - x for x in cv_scores]
 
@@ -99,10 +99,10 @@ if __name__ == "__main__":
     plt.show()
 
     # model.fit( feature_vecs, labels )
-    model = KNeighborsClassifier(n_neighbors=optimal_k, n_jobs=-1,algorithm='kd_tree')
+    model = KNeighborsClassifier(n_neighbors=23, n_jobs=-1,algorithm='kd_tree')
     model.fit( feature_vecs, labels )
     acc = model.score(feature_vecs, labels )
-    print("kNN accuracy: {:.2f}%".format(acc * 100))
+    print("kNN accuracy on training: {:.2f}%".format(acc * 100))
 
     # making predictions
     img_paths = paths.list_images("./testing_labelled")
@@ -128,5 +128,5 @@ if __name__ == "__main__":
 
     # TODO: Improve the accuracy to at least 10% for the test set
     acc = model.score(feature_vecs, labels )
-    print("kNN accuracy: {:.2f}%".format(acc * 100))
+    print("kNN accuracy on test: {:.2f}%".format(acc * 100))
         
