@@ -67,13 +67,15 @@ if __name__ == "__main__":
 
         print("{:} as label {:}".format(img_path,label,))
     
+    # ---------> Set number of cross-validation runs (n_splits) and range of to be tested k's (list(range(1,100)) <-----------
     # shuffle the data using a cross-validation shuffleSplitter
     cv = ShuffleSplit(n_splits=50, test_size=0.3, random_state=None)
-    
     # creating odd list of K for KNN
     myList = list(range(1,100))
+
     # subsetting just the odd ones
     neighbors = list(filter(lambda x: x % 2 != 0, myList))
+
     # empty list that will hold cv scores
     cv_scores = []
         
@@ -127,6 +129,4 @@ if __name__ == "__main__":
     # TODO: Improve the accuracy to at least 10% for the test set
     acc = model.score(feature_vecs, labels )
     print("kNN accuracy: {:.2f}%".format(acc * 100))
-
-
         
