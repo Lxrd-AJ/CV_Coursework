@@ -60,7 +60,6 @@ if __name__ == "__main__":
 
         print("{:} as label {:}".format(img_path,label,))
     
-    # ---------> Set number of cross-validation runs (n_splits) and range of to be tested k's (list(range(1,100)) <-----------
     # shuffle the data using a cross-validation shuffleSplitter
     cv = ShuffleSplit(n_splits=50, test_size=0.3, random_state=None)
     # creating odd list of K for KNN
@@ -98,7 +97,7 @@ if __name__ == "__main__":
     print("kNN accuracy on training: {:.2f}%".format(acc * 100))
 
     # making predictions
-    img_paths = paths.list_images("./testing_labelled")
+    img_paths = paths.list_images("./testing")
 
     feature_vecs = []
     labels = []
@@ -117,6 +116,6 @@ if __name__ == "__main__":
             f.write(entry)
             print(entry)   
 
-    acc = model.score(feature_vecs, labels )
-    print("kNN accuracy on test: {:.2f}%".format(acc * 100))
+    #acc = model.score(feature_vecs, labels )
+    #print("kNN accuracy on test: {:.2f}%".format(acc * 100))
         
