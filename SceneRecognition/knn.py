@@ -29,13 +29,6 @@ def histogram(vec, bin_size=16):
     hist = hist.flatten()
     hist = cv2.normalize( hist , hist )
 
-    # Invert commented and uncommented part to enable/disable histogram or zero mean&unit length; seems to decrease accuracy of test set
-    #hist = vec
-    #mean = cv2.mean(hist)[0]
-    #hist = hist.flatten()
-    #hist = hist-mean
-    #mag = np.sqrt(hist.dot(hist))
-    #hist = hist/mag
     return hist
 
 """
@@ -69,7 +62,7 @@ if __name__ == "__main__":
     
     # ---------> Set number of cross-validation runs (n_splits) and range of to be tested k's (list(range(1,100)) <-----------
     # shuffle the data using a cross-validation shuffleSplitter
-    cv = ShuffleSplit(n_splits=1, test_size=0.3, random_state=None)
+    cv = ShuffleSplit(n_splits=50, test_size=0.3, random_state=None)
     # creating odd list of K for KNN
     myList = list(range(1,100))
 
@@ -99,7 +92,7 @@ if __name__ == "__main__":
     plt.show()
 
     # model.fit( feature_vecs, labels )
-    model = KNeighborsClassifier(n_neighbors=23, n_jobs=-1,algorithm='kd_tree')
+    model = KNeighborsClassifier(n_neighbors=optimal_k, n_jobs=-1,algorithm='kd_tree')
     model.fit( feature_vecs, labels )
     acc = model.score(feature_vecs, labels )
     print("kNN accuracy on training: {:.2f}%".format(acc * 100))
@@ -118,15 +111,12 @@ if __name__ == "__main__":
         feature_vecs.append(hist)
         labels.append(label)
 
-        # uncomment to predict and write into file; suggested after kNN accuracy > 10% for test set
+        prediction = model.predict( [hist] )[0]
+        with open('./run1.txt','a') as f:
+            entry = "{:} {:}\n".format(label, prediction)
+            f.write(entry)
+            print(entry)   
 
-        #prediction = model.predict( [hist] )[0]
-        #with open('./run1.txt','a') as f:
-        #    entry = "{:} {:}\n".format(label, prediction)
-        #    f.write(entry)
-        #    print(entry)   
-
-    # TODO: Improve the accuracy to at least 10% for the test set
     acc = model.score(feature_vecs, labels )
     print("kNN accuracy on test: {:.2f}%".format(acc * 100))
         
