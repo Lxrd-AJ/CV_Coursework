@@ -30,18 +30,20 @@ for each of the patches
 # TODO: change p_s back to 8 and step back to 4
 def features( image ):
     # Patch size (quadratic)
-    p_s = 3
-    step = 50
-    p_c = np.floor(p_s/2)
-    img_s = np.size(image)
-    desc=[]
-    x=y=0
-    while x < img_s- p_c:
-        while y < img_s-p_c:
-            patch = image[x:x+p_s, y:y+p_s]
-            desc.append(feature_vector(patch,p_s))
-            y+=step
-        x+=step
+    # p_s = 3
+    # step = 50
+    # p_c = np.floor(p_s/2)
+    # img_s = np.size(image)
+    # desc=[]
+    # x=y=0
+    # while x < img_s- p_c:
+    #     while y < img_s-p_c:
+    #         patch = image[x:x+p_s, y:y+p_s]
+    #         desc.append(feature_vector(patch,p_s))
+    #         y+=step
+    #     x+=step
+
+
     # Shift extractor:
     #sift_extractor = cv2.xfeatures2d.SIFT_create()
     #desc = sift_extractor.detectAndCompute( image,None )[1]
@@ -49,6 +51,15 @@ def features( image ):
     #TODO: Remove later, temp hack to make it run faster
     # The clusters would have to be recalculated if this is changed
     #desc = desc[:,50:60]
+
+    desc = []
+    win_row = 16
+    win_col = 16
+    for row in range(0, image.shape[0] - win_row, win_row):
+        for col in range(0, image.shape[1] - win_col, win_col):
+            patch = image[row:row+win_row, col:col+win_col].flatten()            
+            desc.append(patch)
+    desc = np.array(desc)
     return desc
 
 """
@@ -101,10 +112,7 @@ def distance_cluster( image_feats, clusters ):
     For each row, calculate its distance to each k-cluster and determine the k-cluster with the smallest distance
     and build a matrix of these k-clusters
     """
-    #for row in range(0, image_feat.shape[0]):
-    for e in image_feats:
-
-        #e = image_feat[row,:]
+    for e in image_feats:        
         row_matrix = np.tile(e, (len_clusters,1))
         distances = paired_distances(row_matrix, clusters)
         X.append(np.argmin(distances))
@@ -177,18 +185,18 @@ def make_prediction( input_vec, classifiers ):
     return prediction
 
 # Should create a dictionary with n random features per image for each label
-def random_features_perImage( img_dict):
-    n=10
-    rand_features_dict = {}
-    for key in img_dict.keys():
-        X=[]
-        for image in img_dict[key]:
-            feats=features(image)
-            randfeats = random.shuffle(feats)
-            X.append(randfeats[0:n])
-        fts = np.array(X)
-        rand_features_dict[key] = fts
-    return rand_features_dict
+# def random_features_perImage( img_dict):
+#     n=10
+#     rand_features_dict = {}
+#     for key in img_dict.keys():
+#         X=[]
+#         for image in img_dict[key]:
+#             feats=features(image)
+#             randfeats = random.shuffle(feats)
+#             X.append(randfeats[0:n])
+#         fts = np.array(X)
+#         rand_features_dict[key] = fts
+#     return rand_features_dict
 
 
 """
@@ -213,9 +221,7 @@ if __name__ == "__main__":
         #TODO: Random sampling for k-Means, not all features from training images (just 10 patches)
         X = []
         prog = 0
-        ft_dict_size = 0
-        for images in list(ft_dict.values()):
-            ft_dict_size+=1
+        ft_dict_size = len(list(ft_dict.values()))
         for images in list(ft_dict.values()):
             entry = np.concatenate(images)
             X.extend(entry)
@@ -223,35 +229,40 @@ if __name__ == "__main__":
             print("Progress building matrix: {:.2f}%".format((prog/ft_dict_size)*100))
 
         X = np.array(X)
-        print("Input data shape = {:}".format(X.shape))   
-        kmeans = KMeans(n_clusters=500, n_jobs=2, verbose=True ).fit(X)
+        print("Original dataset for clustering = " + str(X.shape))
+        # Choose (X.shape[0] / 10) patches to reduce computation when clustering
+        X_ = []
+        for row in range(0, X.shape[0], 10):
+            X_.append( X[row,:])
+        X = np.array( X_ )
+        print("Truncated for clustering = {:}".format(X.shape))  
+        kmeans = KMeans(n_clusters=500, n_jobs=-1, verbose=False ).fit(X)
         joblib.dump( kmeans, 'pt2_clusters.pkl')
 
     X = []
     y = []
-    for (label,images_ft) in ft_dict.items():
+    print("Creating bag of visual words model ...")
+    for (label,images_ft) in ft_dict.items():        
         for image_ft in images_ft:
             bg = bag_of_words( image_ft, kmeans.cluster_centers_)
             X.append(bg)
-            y.append(label)
+            y.append(label)            
     X = np.array(X)
     y = np.array(y)
     
+    print("Training 1-vs-all linear classifiers ...")
     classifiers = train_classifiers( ft_dict.keys(), X, y)
     
-    #TODO change to 'testing' when finished everything else
-    img_paths = paths.list_images("./testing_labelled")
-    # img_paths = list(img_paths)[:2]
+    img_paths = paths.list_images("./testing")
     clusters = kmeans.cluster_centers_
-
-    with open('./run2.txt', 'a') as f:
+    print("Making predictions of testing dataset ...")
+    with open('./run2.txt', 'w') as f:
         for img_path in img_paths:
-            label = img_path.split( os.path.sep )[1]
-            # print(label) #Visual Verification only
+            label = img_path.split( os.path.sep )[2]            
             image = cv2.imread(img_path,0)
             fts = features( image )
             ft_vec = bag_of_words( fts, clusters)
             pred_label = make_prediction( ft_vec, classifiers)            
-            entry = "{:} {:}\n".format(label, pred_label)
-            f.write(entry)
+            entry = "{:} {:}".format(label, pred_label)
+            f.write(entry + "\n")
             print(entry)
