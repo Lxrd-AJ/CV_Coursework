@@ -13,9 +13,15 @@ from keras.utils import plot_model
 from keras.models import load_model
 from sklearn.utils import shuffle
 
-#Get training data
+# Set the size of the training data for input layer
 size = (256,256)
 
+"""
+Reads the data available in a given directory 'dir'. 
+- Matches the labes to its images and resizes each to variable 'size'
+- Shuffles the order of the data
+- Creates A mapping of all labels to a number
+"""
 def read_dir( dir_name ):
     X = []
     y = []
@@ -38,7 +44,7 @@ def read_dir( dir_name ):
             y.append(class_num)
     X = np.array(X)
     y = np.array(y).reshape( (len(y),1) )
-    X, y = shuffle( X, y, random_state=0) #Keras already shuffles the data when you fit
+    X, y = shuffle( X, y, random_state=0) # Keras already shuffles the data when you fit
     X = X.reshape(X.shape[0],size[0],size[1],1)
     X = X / 255 
     y = np_utils.to_categorical(y,class_num+1)
@@ -48,7 +54,6 @@ X, y, class_map, class_num = read_dir('./training')
 num_classes = class_num + 1
 print(class_map)
 
-#TODO: Convnet parameter tuning, try different kernel sizes
 model = Sequential()
 model.add(Conv2D(32,(3, 3),activation='relu',input_shape=(size[0],size[1],1)))
 model.add(Conv2D(64, (3, 3), activation='relu'))
@@ -61,7 +66,7 @@ model.add(Dense(class_num+1, activation='softmax'))
 
 sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy',optimizer=sgd,metrics=['accuracy'])
-plot_model(model, to_file='cnn_arch.png')
+#plot_model(model, to_file='cnn_arch.png')
 
 if os.path.exists('./cnn_model.h5'):
     print("Using pre_trained model ...")

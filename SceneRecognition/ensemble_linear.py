@@ -14,11 +14,19 @@ from sklearn.utils import shuffle
 from sklearn.model_selection import GridSearchCV
 
 
-
+"""
+Transforms a patch to a feature vector and then to a histogram
+"""
 def feature_vector(vec, bin_size):
     hist = cv2.calcHist([vec], [0], None, [bin_size], [0,bin_size^2]).flatten()
     return cv2.normalize( hist , hist )
 
+"""
+Feature extracting function:
+Extracts features from an image and returns it which can 
+be used to train a classifier. Selects patches of size 'p_s' every step 'step' calls 'feature_vector(patch)'
+for each of the patches
+"""
 # TODO: change p_s back to 8 and step back to 4
 def features( image ):
     # Patch size (quadratic)
@@ -43,6 +51,9 @@ def features( image ):
     #desc = desc[:,50:60]
     return desc
 
+"""
+Builds a dictionary mapping every label to its images
+"""
 def build_dictionary( dir_name ):
     img_dict = {}
     count = 0
@@ -61,6 +72,9 @@ def build_dictionary( dir_name ):
             count += 1
     return (img_dict, count)
 
+"""
+Builds the visual word dictionary/vocabulary from every images' features
+"""
 def build_features_dict( img_dict ):
     features_dict = {}
     prog = 0
@@ -96,6 +110,9 @@ def distance_cluster( image_feats, clusters ):
         X.append(np.argmin(distances))
     return X
 
+"""
+Calculates the Bag-of-Visual-Words for an image, given its features and the pre-calculated vocabulary clusters
+"""
 def bag_of_words( image_feat, clusters ):
     distances = distance_cluster( image_feat, clusters )
     counts = {}
@@ -106,8 +123,10 @@ def bag_of_words( image_feat, clusters ):
         X[key] = value
     return X
 
+"""
+Trains each SVM given its labels together with their positive examples and the remaining lables linked connected to their BoVWs as negatives
+"""
 def train_classifiers( labels, X, y):
-    #TODO: Grid search for the SVC for choosing best parameters (Optional)
     classifiers = []
     for label in labels:
         #Split the data into 1-vs-all
@@ -140,6 +159,9 @@ def train_classifiers( labels, X, y):
         classifiers.append( (label,svm) )
     return classifiers
 
+"""
+Predicts for each trained SVM the probability that the given BoVW from an image belongs to its (the SVMs class)
+"""
 def make_prediction( input_vec, classifiers ):
     input_vec = input_vec.reshape(1,-1)
     prediction = None 
@@ -152,12 +174,6 @@ def make_prediction( input_vec, classifiers ):
         if largest_prob < prob:
             largest_prob = prob
             prediction = label
-        # print("{:}, prob = {:}, classes = {:}".format(
-        #     res,
-        #     probs,
-        #     classes
-        # ))
-    # print("Largest probab = " + str(largest_prob))
     return prediction
 
 # Should create a dictionary with n random features per image for each label
@@ -174,6 +190,14 @@ def random_features_perImage( img_dict):
         rand_features_dict[key] = fts
     return rand_features_dict
 
+
+"""
+- Builds the features models and trains the classifiers in these steps:
+    - Creates the dictionaries
+    - Imports the pre-computed cluster (if available)
+        - Else: Compute them with 10 random features selected from each image
+    -
+"""
 if __name__ == "__main__":
     dic, count = build_dictionary("./training") 
     print("Calculating the features for " + str(count) + " images")   

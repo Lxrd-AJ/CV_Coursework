@@ -13,7 +13,8 @@ from sklearn.model_selection import ShuffleSplit
 
 
 """
-Feature extracting function
+Transforms a patch to a feature vector:
+The kNNs feature extracting function.
 Extracts features from an image and returns it which can 
 be used to train a classifier
 """
@@ -60,43 +61,40 @@ if __name__ == "__main__":
 
         print("{:} as label {:}".format(img_path,label,))
     
-    # shuffle the data using a cross-validation shuffleSplitter
-    cv = ShuffleSplit(n_splits=50, test_size=0.3, random_state=None)
-    # creating odd list of K for KNN
+    # Creating odd list of k for kNN
     myList = list(range(1,100))
-
-    # subsetting just the odd ones
     neighbors = list(filter(lambda x: x % 2 != 0, myList))
 
-    # empty list that will hold cv scores
+    #  Perform cross validation
     cv_scores = []
-        
-    # perform cross validation
+    cv = ShuffleSplSt(n_splits=50, test_size=0.3, random_state=None)
+
     for k in neighbors:
         model = KNeighborsClassifier(n_neighbors=k, n_jobs=-1)
         scores = cross_val_score(model, feature_vecs, labels, cv=cv, scoring='accuracy')
         cv_scores.append(scores.mean())
         print("Finished CV: {:.2f}%".format((k/(np.size(neighbors)*2))*100))
-    # changing to misclassification error
+
+    # Changing to misclassification error
     MSE = [1 - x for x in cv_scores]
 
-    # determining best k
+    # Determining best k
     optimal_k = neighbors[MSE.index(min(MSE))]
     print ("The optimal number of neighbors is %d" % optimal_k)
 
-    # plot misclassification error vs k
+    # Plot misclassification error vs k
     plt.plot(neighbors, MSE)
     plt.xlabel('Number of Neighbors K')
     plt.ylabel('Misclassification Error')
     plt.show()
 
-    # model.fit( feature_vecs, labels )
+    # Train a model: model.fit( feature_vecs, labels )
     model = KNeighborsClassifier(n_neighbors=optimal_k, n_jobs=-1,algorithm='kd_tree')
     model.fit( feature_vecs, labels )
     acc = model.score(feature_vecs, labels )
     print("kNN accuracy on training: {:.2f}%".format(acc * 100))
 
-    # making predictions
+    # Making predictions
     img_paths = paths.list_images("./testing")
 
     feature_vecs = []
@@ -110,6 +108,8 @@ if __name__ == "__main__":
         feature_vecs.append(hist)
         labels.append(label)
 
+        
+        # Write results to target file 'run1.txt
         prediction = model.predict( [hist] )[0]
         with open('./run1.txt','a') as f:
             entry = "{:} {:}\n".format(label, prediction)
@@ -117,5 +117,4 @@ if __name__ == "__main__":
             print(entry)   
 
     #acc = model.score(feature_vecs, labels )
-    #print("kNN accuracy on test: {:.2f}%".format(acc * 100))
-        
+    #print("kNN accuracy on test: {:.2f}%".format(acc * 100))   
