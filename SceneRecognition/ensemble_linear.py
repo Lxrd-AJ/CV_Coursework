@@ -24,34 +24,9 @@ def feature_vector(vec, bin_size):
 """
 Feature extracting function:
 Extracts features from an image and returns it which can 
-be used to train a classifier. Selects patches of size 'p_s' every step 'step' calls 'feature_vector(patch)'
-for each of the patches
+be used to train a classifier.
 """
-# TODO: change p_s back to 8 and step back to 4
 def features( image ):
-    # Patch size (quadratic)
-    # p_s = 3
-    # step = 50
-    # p_c = np.floor(p_s/2)
-    # img_s = np.size(image)
-    # desc=[]
-    # x=y=0
-    # while x < img_s- p_c:
-    #     while y < img_s-p_c:
-    #         patch = image[x:x+p_s, y:y+p_s]
-    #         desc.append(feature_vector(patch,p_s))
-    #         y+=step
-    #     x+=step
-
-
-    # Shift extractor:
-    #sift_extractor = cv2.xfeatures2d.SIFT_create()
-    #desc = sift_extractor.detectAndCompute( image,None )[1]
-
-    #TODO: Remove later, temp hack to make it run faster
-    # The clusters would have to be recalculated if this is changed
-    #desc = desc[:,50:60]
-
     desc = []
     win_row = 16
     win_col = 16
