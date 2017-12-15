@@ -131,11 +131,6 @@ def train_classifiers( labels, X, y):
         X_train, y_train = shuffle( X_train, y_train, random_state=0)
         svm = SVC(probability=True)
 
-        #Doing some CV grid search to find an optimal C 
-        # parameters = {'kernel':('linear', 'rbf'), 'C':[1, 10]}
-        # clf = GridSearchCV(svm, parameters)
-        # clf.fit(X_train, y_train)
-
         svm.fit( X_train, y_train)
         acc = svm.score( X_train, y_train )
         print("Train score for {:} vs Non-{:} SVM classifier; accuracy: {:.2f}%".format(label, label, acc * 100))
@@ -159,21 +154,6 @@ def make_prediction( input_vec, classifiers ):
             prediction = label
     return prediction
 
-# Should create a dictionary with n random features per image for each label
-# def random_features_perImage( img_dict):
-#     n=10
-#     rand_features_dict = {}
-#     for key in img_dict.keys():
-#         X=[]
-#         for image in img_dict[key]:
-#             feats=features(image)
-#             randfeats = random.shuffle(feats)
-#             X.append(randfeats[0:n])
-#         fts = np.array(X)
-#         rand_features_dict[key] = fts
-#     return rand_features_dict
-
-
 """
 - Builds the features models and trains the classifiers in these steps:
     - Creates the dictionaries
@@ -193,7 +173,6 @@ if __name__ == "__main__":
     else:  
         print("Building input matrix ...")  
 
-        #TODO: Random sampling for k-Means, not all features from training images (just 10 patches)
         X = []
         prog = 0
         ft_dict_size = len(list(ft_dict.values()))
@@ -216,6 +195,8 @@ if __name__ == "__main__":
 
     X = []
     y = []
+
+    # Computing the Bag-of-Words for all training images
     print("Creating bag of visual words model ...")
     for (label,images_ft) in ft_dict.items():        
         for image_ft in images_ft:
@@ -225,9 +206,11 @@ if __name__ == "__main__":
     X = np.array(X)
     y = np.array(y)
     
+    # Train the classifiers
     print("Training 1-vs-all linear classifiers ...")
     classifiers = train_classifiers( ft_dict.keys(), X, y)
     
+    # Predict the labels for the test images
     img_paths = paths.list_images("./testing")
     clusters = kmeans.cluster_centers_
     print("Making predictions of testing dataset ...")

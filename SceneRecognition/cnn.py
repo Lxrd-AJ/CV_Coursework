@@ -54,6 +54,8 @@ X, y, class_map, class_num = read_dir('./training')
 num_classes = class_num + 1
 print(class_map)
 
+# Setting up the CNN by adding layers with different functionalities
+
 model = Sequential()
 model.add(Conv2D(32,(3, 3),activation='relu',input_shape=(size[0],size[1],1)))
 model.add(Conv2D(64, (3, 3), activation='relu'))
@@ -76,7 +78,7 @@ else:
     model.save('./cnn_model.h5')
 
 
-#Predictions
+# Predicts the labels of the test images and writes into run3.txt
 X_test = []
 X_label = []
 img_paths = paths.list_images("./testing")
